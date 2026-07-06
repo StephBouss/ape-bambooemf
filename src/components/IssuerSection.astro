@@ -1,0 +1,66 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+import { issuer } from '../data/operation';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+<section id="emetteur" class="py-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-2xl mb-14 reveal-group">
+      <div class="eyebrow reveal-item mb-3">{t.issuer.eyebrow}</div>
+      <h2 class="reveal-item font-display font-bold text-3xl md:text-4xl text-charbon">{t.issuer.title}</h2>
+      <p class="reveal-item text-muted mt-4 leading-relaxed">{t.issuer.lead}</p>
+    </div>
+
+    <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-10">
+      <div class="reveal-group">
+        <h3 class="reveal-item font-display font-semibold text-lg text-charbon mb-5">{t.issuer.whyTitle}</h3>
+        <ul class="space-y-4">
+          {issuer.objectives.map((obj, i) => (
+            <li class="reveal-item flex items-start gap-3">
+              <span class="mt-0.5 w-6 h-6 rounded-md bg-vert-marque/15 text-vert-foret flex items-center justify-center text-xs font-bold shrink-0">
+                {i + 1}
+              </span>
+              <span class="text-sm text-encre">{obj}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="reveal-item text-xs text-muted border-l-2 border-vert-marque pl-3 mt-8">{t.issuer.docRef}</p>
+      </div>
+
+      <div class="reveal-item bg-white border border-filet rounded-card p-7 shadow-soft h-fit">
+        <h3 class="eyebrow mb-5">{t.issuer.cardTitle}</h3>
+        <dl class="space-y-4 text-sm">
+          <div>
+            <dt class="text-xs text-muted">{t.issuer.cardStatus}</dt>
+            <dd class="font-semibold mt-0.5">{issuer.status}</dd>
+          </div>
+          <div>
+            <dt class="text-xs text-muted">{t.issuer.cardLegalForm}</dt>
+            <dd class="font-semibold mt-0.5">{issuer.legalForm}</dd>
+          </div>
+          <div>
+            <dt class="text-xs text-muted">{t.issuer.cardHq}</dt>
+            <dd class="font-semibold mt-0.5">{issuer.hqAddress}</dd>
+          </div>
+          <div>
+            <dt class="text-xs text-muted">{t.issuer.cardNetwork}</dt>
+            <dd class="font-semibold mt-0.5">{issuer.agenciesSummary}</dd>
+          </div>
+          <div>
+            <dt class="text-xs text-muted">{t.issuer.cardContact}</dt>
+            <dd class="font-semibold mt-0.5 tabular flex flex-col gap-0.5">
+              {issuer.phones.map((p) => <a href={`tel:${p.replace(/\s/g, '')}`} class="hover:text-vert-foret">{p}</a>)}
+              <a href={`mailto:${issuer.email}`} class="hover:text-vert-foret">{issuer.email}</a>
+              <a href={`https://${issuer.website}`} class="hover:text-vert-foret">{issuer.website}</a>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>

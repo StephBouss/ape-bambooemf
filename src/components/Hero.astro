@@ -1,0 +1,98 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+<section id="accueil" class="relative overflow-hidden pt-36 pb-16 bg-hero-gradient min-h-[640px] flex items-center">
+  <div class="absolute inset-0 bg-hero-halo pointer-events-none"></div>
+
+  <!-- Photo officielle : groupe + bâtiment + dégradé + feuilles déjà composés dans le fichier.
+       Masquée sous md : en gros plan sur mobile elle rend le texte illisible ; le dégradé de
+       marque (bg-hero-gradient) sert alors seul de fond, avec un contraste garanti. -->
+  <img
+    src="/img/hero-photo.jpg"
+    alt=""
+    aria-hidden="true"
+    class="hidden md:block absolute inset-0 w-full h-full object-cover object-[75%_center]"
+    onerror="this.style.display='none'"
+  />
+
+  <!-- Scrim : garantit le contraste AA du texte sur la photo (§7 Accessibilité) -->
+  <div
+    class="hidden md:block absolute inset-0 pointer-events-none"
+    style="background: radial-gradient(120% 100% at 0% 15%, var(--menthe-fond) 0%, color-mix(in srgb, var(--menthe-fond) 75%, transparent) 32%, transparent 62%);"
+  ></div>
+
+  <!-- feuilles flottantes additionnelles, côté texte -->
+  <div class="leaves pointer-events-none absolute inset-0 z-[1]" aria-hidden="true">
+    <Icon name="tabler:leaf" class="leaf leaf-1 w-7 h-7 text-vert-marque/30" />
+    <Icon name="tabler:leaf" class="leaf leaf-2 w-5 h-5 text-vert-vif/30" />
+  </div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6 w-full">
+    <div class="max-w-lg">
+      <div class="hero-reveal inline-flex items-center gap-2 bg-navy text-white text-[11px] font-semibold uppercase tracking-wide rounded-full px-4 py-2 mb-7">
+        <span class="w-1.5 h-1.5 rounded-full bg-jaune-taux"></span>
+        {t.hero.visaPill}
+      </div>
+
+      <h1 class="hero-reveal font-display font-bold text-4xl md:text-[3.4rem] leading-[1.1] text-charbon text-balance">
+        {t.hero.title}
+      </h1>
+
+      <div class="hero-reveal flex flex-wrap gap-3 mt-6">
+        <span class="bg-vert-marque text-white text-xs font-bold uppercase tracking-wide rounded-full px-5 py-2.5">{t.hero.badgeAmount}</span>
+        <span class="bg-jaune-taux text-charbon text-xs font-bold uppercase tracking-wide rounded-full px-5 py-2.5">{t.hero.badgeRate}</span>
+      </div>
+
+      <p class="hero-reveal italic text-base text-encre/70 max-w-md mt-6">"{t.hero.quote}"</p>
+
+      <ul class="hero-reveal grid sm:grid-cols-2 gap-2.5 mt-7">
+        {t.hero.miniList.map((item) => (
+          <li class="flex items-center gap-3 bg-white/80 backdrop-blur rounded-lg border border-filet px-3.5 py-2.5">
+            <span class="text-[11px] text-muted">{item.label}</span>
+            <span class="ml-auto font-semibold text-xs text-encre tabular text-right">{item.value}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="hero-reveal flex flex-wrap gap-4 mt-8">
+        <a href="#documents" class="inline-flex items-center gap-2 bg-vert-marque text-white font-semibold text-sm rounded-full px-6 py-3.5 shadow-soft hover:bg-vert-foret transition-colors group">
+          <Icon name="tabler:download" class="w-4 h-4" />
+          {t.hero.ctaPrimary}
+        </a>
+        <a href="#operation" class="inline-flex items-center gap-2 border border-charbon/30 bg-white/60 backdrop-blur text-charbon font-semibold text-sm rounded-full px-6 py-3.5 hover:border-vert-marque hover:text-vert-foret transition-colors group">
+          {t.hero.ctaSecondary}
+          <Icon name="tabler:arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
+        </a>
+      </div>
+
+      <div class="hero-reveal flex flex-wrap items-center gap-x-6 gap-y-2 mt-8 text-xs text-muted">
+        <span class="inline-flex items-center gap-1.5"><Icon name="tabler:shield-check" class="w-4 h-4 text-vert-foret" /> Visa COSUMAF</span>
+        <span class="inline-flex items-center gap-1.5"><Icon name="tabler:building-bank" class="w-4 h-4 text-vert-foret" /> Coté à la BVMAC</span>
+        <span>{t.hero.footNote}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .leaf { position: absolute; }
+  .leaf-1 { top: 14%; left: 6%; animation: drift1 14s ease-in-out infinite; }
+  .leaf-2 { top: 62%; left: 2%; animation: drift2 18s ease-in-out infinite; }
+  @keyframes drift1 {
+    0%,100% { transform: translate(0,0) rotate(0deg); }
+    50% { transform: translate(-10px, 14px) rotate(14deg); }
+  }
+  @keyframes drift2 {
+    0%,100% { transform: translate(0,0) rotate(0deg); }
+    50% { transform: translate(8px, -12px) rotate(-10deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .leaf { animation: none !important; }
+  }
+</style>

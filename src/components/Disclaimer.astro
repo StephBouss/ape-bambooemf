@@ -1,0 +1,22 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+import { regulatory } from '../data/operation';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+<section class="py-16 bg-navy text-white">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="reveal-item flex flex-col md:flex-row gap-5 md:items-start">
+      <Icon name="tabler:alert-triangle" class="w-6 h-6 text-jaune-taux shrink-0" />
+      <div>
+        <h3 class="font-display font-semibold text-sm uppercase tracking-wide text-jaune-taux mb-3">{t.disclaimer.label}</h3>
+        <p class="text-sm text-white/85 leading-relaxed max-w-4xl">{t.disclaimer.text}</p>
+        <p class="text-xs text-white/50 mt-3 tabular">Visa N° {regulatory.cosumafVisa}</p>
+      </div>
+    </div>
+  </div>
+</section>

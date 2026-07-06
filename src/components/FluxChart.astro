@@ -1,0 +1,42 @@
+---
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+import { fluxAnnuels } from '../data/operation';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const colorVar: Record<string, string> = {
+  interets: 'var(--bleu-roi)',
+  'interets-capital': 'var(--vert-marque)',
+  remboursement: 'var(--navy)',
+};
+const legendLabel: Record<string, string> = {
+  interets: t.flux.legendInterets,
+  'interets-capital': t.flux.legendInteretsCapital,
+  remboursement: t.flux.legendRemboursement,
+};
+---
+<aside class="reveal-item bg-menthe-fond border border-filet rounded-card p-6 h-fit">
+  <h3 class="eyebrow mb-4">{t.flux.title}</h3>
+
+  <ul class="flux-rows space-y-3">
+    {fluxAnnuels.map((f) => (
+      <li class="flex items-center gap-3 text-sm">
+        <span class="w-2.5 h-2.5 rounded-full shrink-0" style={`background:${colorVar[f.kind]}`}></span>
+        <span class="font-semibold tabular">{f.year}</span>
+        <span class="text-muted text-xs ml-auto text-right">{f.label}</span>
+      </li>
+    ))}
+  </ul>
+
+  <ul class="flex flex-col gap-1.5 mt-6 pt-5 border-t border-filet">
+    {Object.entries(legendLabel).map(([kind, label]) => (
+      <li class="flex items-center gap-2 text-[11px] text-muted">
+        <span class="w-2 h-2 rounded-sm shrink-0" style={`background:${colorVar[kind]}`}></span>
+        {label}
+      </li>
+    ))}
+  </ul>
+</aside>

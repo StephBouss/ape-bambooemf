@@ -1,0 +1,148 @@
+{
+  "meta": {
+    "title": "EO BAMBOO EMF 7.25% Gross 2026-2029 — Public Bond Offering",
+    "description": "Public bond offering by Bamboo Microfinance: FCFA 5 billion, 7.25% gross/year over 3 years. COSUMAF Visa No. COSUMAF-APE-03/26.",
+    "ogTitle": "EO BAMBOO EMF 7.25% Gross 2026-2029"
+  },
+  "nav": {
+    "accueil": "Home",
+    "emetteur": "The Issuer",
+    "operation": "The Offering",
+    "syndicat": "Placement Syndicate",
+    "documents": "Documents",
+    "contact": "Contact",
+    "langSwitch": "FR"
+  },
+  "hero": {
+    "visaPill": "Offering approved by COSUMAF No. COSUMAF-APE-03/26",
+    "title": "Public Bond Offering",
+    "badgeAmount": "Issue amount: FCFA 5 billion",
+    "badgeRate": "7.25% gross/year over 3 years",
+    "quote": "Your investment, turned into real financing for entrepreneurs and households.",
+    "miniList": [
+      { "label": "Face Value", "value": "1,000 FCFA" },
+      { "label": "Number of bonds", "value": "5,000,000" },
+      { "label": "Subscription period", "value": "15 July to 12 October 2026" },
+      { "label": "Minimum subscription", "value": "50 bonds, i.e. 50,000 FCFA" }
+    ],
+    "ctaPrimary": "Download the documents",
+    "ctaSecondary": "Discover the offering",
+    "footNote": "For more information: ape-bambooemf.com"
+  },
+  "countdown": {
+    "label": "Subscription closes in",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "seconds": "Seconds",
+    "statusOpen": "Subscription open — 15 Jul. to 12 Oct. 2026",
+    "statusClosed": "Subscription closed"
+  },
+  "video": {
+    "eyebrow": "Presentation",
+    "title": "Discover the offering in video",
+    "lead": "A quick overview of the EO BAMBOO EMF 7.25% Gross 2026-2029 bond issue.",
+    "unsupported": "Your browser does not support video playback."
+  },
+  "issuer": {
+    "eyebrow": "The Issuer",
+    "title": "Bamboo Microfinance",
+    "lead": "Bamboo Microfinance is a microfinance institution licensed by the Central African Banking Commission (COBAC), operating in Gabon for over a decade. Its mission: to provide accessible financial services to entrepreneurs, households and micro/small businesses excluded from the traditional banking system.",
+    "whyTitle": "Why this offering?",
+    "cardTitle": "Fact sheet",
+    "cardStatus": "Status",
+    "cardLegalForm": "Legal form",
+    "cardHq": "Head office",
+    "cardNetwork": "Branch network",
+    "cardContact": "Contact",
+    "docRef": "Detailed mission, vision, values and key figures → Part 5 of the Information Document."
+  },
+  "operation": {
+    "eyebrow": "The Offering",
+    "title": "Key terms of the offering",
+    "summaryCards": [
+      { "label": "Total amount", "value": "FCFA 5 bn", "color": "green" },
+      { "label": "Interest rate", "value": "7.25%", "color": "yellow" },
+      { "label": "Face value", "value": "1,000 FCFA", "color": "blue" },
+      { "label": "Maturity", "value": "3 years", "sub": "2026-2029", "color": "green" }
+    ],
+    "tableCaption": "Summary sheet — EO BAMBOO EMF 7.25% Gross 2026-2029",
+    "rows": [
+      { "k": "Issuer", "v": "Bamboo Microfinance S.A." },
+      { "k": "Legal form", "v": "Public Limited Company (S.A.)" },
+      { "k": "COSUMAF Visa", "v": "No. COSUMAF-APE-03/26" },
+      { "k": "Nature of securities", "v": "Fixed-rate, dematerialised bonds" },
+      { "k": "Issue amount", "v": "FCFA 5,000,000,000" },
+      { "k": "Number of bonds", "v": "5,000,000" },
+      { "k": "Face value", "v": "1,000 FCFA" },
+      { "k": "Subscription price", "v": "1,000 FCFA (100% at par)" },
+      { "k": "Interest rate", "v": "7.25% gross / year" },
+      { "k": "Term", "v": "3 years" },
+      { "k": "Value date", "v": null },
+      { "k": "Maturity date", "v": null },
+      { "k": "Subscription period", "v": "15 July – 12 October 2026" },
+      { "k": "Minimum subscription", "v": "50 bonds — 50,000 FCFA" },
+      { "k": "Eligible investors", "v": "Any individual or legal entity" },
+      { "k": "Interest payment", "v": "Semi-annually, from the value date" },
+      { "k": "Capital repayment", "v": "1-year grace period, then every six months over the last 2 years" },
+      { "k": "Listing venue", "v": "BVMAC" },
+      { "k": "Arranger & Lead manager", "v": "Africa Bright Securities" }
+    ],
+    "unconfirmed": "see the Information Document",
+    "objetTitle": "Use of proceeds",
+    "objetText": "Financing loans granted to customers: civil servants, private-sector employees and traders.",
+    "privilegeTitle": "Bondholders' privilege",
+    "privilegeText": "First-ranking security in favour of the bondholders' collective body.",
+    "fiscalTitle": "Tax regime & bondholders' body",
+    "fiscalText": "Refer to the Information Document.",
+    "litigeTitle": "Dispute resolution",
+    "litigeText": "Refer to the Information Document.",
+    "devNote": "Exact amortisation terms, value date and maturity date will be finalised on the visa'd Information Document."
+  },
+  "flux": {
+    "title": "Annual cash flows",
+    "legendInterets": "Interest only",
+    "legendInteretsCapital": "Interest + Capital",
+    "legendRemboursement": "Full repayment"
+  },
+  "syndicate": {
+    "eyebrow": "Placement Syndicate",
+    "title": "Placement Agents",
+    "banner": "Arranger & Lead Manager: Africa Bright Securities",
+    "colAgent": "Placement agent",
+    "colCountry": "Country",
+    "colAddress": "Address",
+    "membersSuffix": "members",
+    "memberSuffix": "member",
+    "chefDeFileTag": "Lead manager",
+    "footnote": "Subscriptions may be lodged with any of the approved placement agents above, during the subscription period from 15 July to 12 October 2026."
+  },
+  "documents": {
+    "eyebrow": "Documents",
+    "title": "Official documentation",
+    "lead": "One-click download, no registration required.",
+    "download": "Download",
+    "soon": "Coming soon"
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Issuer & Arranger",
+    "issuerRole": "Issuer",
+    "arrangerRole": "Arranger & Lead Manager",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "website": "Website",
+    "approval": "Licence"
+  },
+  "disclaimer": {
+    "label": "Regulatory notice",
+    "text": "In accordance with the provisions governing Public Offerings in the CEMAC zone, this offering has been authorised by the Central African Financial Market Supervisory Commission (COSUMAF), under Visa No. COSUMAF-APE-03/26. Potential investors' attention is drawn to the fact that a financial investment carries risk and that the value of the securities may rise or fall, influenced by factors internal or external to the Issuer. The granting of a visa by COSUMAF implies neither approval of the merits of the offering, nor authentication of the information contained in the information document; it was granted after review of the relevance and consistency of the information. Read the information document carefully before making any investment decision."
+  },
+  "footer": {
+    "legalNotice": "The information on this website is provided for information purposes only and does not constitute an offer to sell or a solicitation to buy securities. Any investment decision must be based exclusively on the Information Document relating to the offering, registered under number COSUMAF-APE-03/26.",
+    "line1": "Visa granted by COSUMAF No. COSUMAF-APE-03/26 · Listed on BVMAC",
+    "line2": "© 2026 Bamboo Microfinance S.A. — All rights reserved",
+    "activePeriod": "Temporary site, active from 15/07 to 12/10/2026"
+  }
+}

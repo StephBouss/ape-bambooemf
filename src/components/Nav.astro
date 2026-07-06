@@ -1,0 +1,119 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { Lang } from '../i18n/utils';
+import { useTranslations, alternateLang, pathForLang } from '../i18n/utils';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const altHref = pathForLang(alternateLang(lang));
+
+const links = [
+  { href: '#accueil', label: t.nav.accueil },
+  { href: '#emetteur', label: t.nav.emetteur },
+  { href: '#operation', label: t.nav.operation },
+  { href: '#syndicat', label: t.nav.syndicat },
+  { href: '#documents', label: t.nav.documents },
+  { href: '#contact', label: t.nav.contact },
+];
+---
+<header id="site-nav" class="fixed top-0 inset-x-0 z-50 transition-colors duration-300" data-nav>
+  <nav class="max-w-6xl mx-auto flex items-center justify-between h-20 px-6">
+    <a href={pathForLang(lang)} class="flex items-center h-10">
+      <!-- Logo officiel : /public/img/logo.png (à fournir) -->
+      <img
+        src="/img/logo.png"
+        alt="Bamboo Microfinance"
+        class="h-10 w-auto"
+        onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')"
+      />
+      <span class="hidden items-center gap-2 font-display font-bold text-lg text-charbon">
+        <span class="w-9 h-9 rounded-lg bg-pastille-gradient flex items-center justify-center text-white text-sm font-extrabold">B</span>
+        Bamboo <span class="text-vert-marque">EMF</span>
+      </span>
+    </a>
+
+    <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-muted">
+      {links.map((l) => (
+        <li>
+          <a href={l.href} class="nav-link relative py-1 hover:text-vert-foret transition-colors">
+            {l.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="hidden md:flex items-center gap-3">
+      <a
+        href={altHref}
+        class="text-xs font-bold border border-filet rounded-full px-3 py-1.5 hover:border-vert-marque hover:text-vert-foret transition-colors"
+      >
+        {t.nav.langSwitch}
+      </a>
+    </div>
+
+    <button id="burger" class="md:hidden w-10 h-10 flex items-center justify-center" aria-label="Menu" aria-expanded="false">
+      <Icon name="tabler:menu-2" class="w-6 h-6 text-charbon" id="burger-icon" />
+    </button>
+  </nav>
+
+  <div id="mobile-menu" class="md:hidden hidden flex-col gap-1 px-6 pb-6 bg-white/95 backdrop-blur border-t border-filet">
+    {links.map((l) => (
+      <a href={l.href} class="py-3 text-sm font-medium text-encre border-b border-filet last:border-0">{l.label}</a>
+    ))}
+    <a href={altHref} class="py-3 text-sm font-bold text-vert-foret">{t.nav.langSwitch}</a>
+  </div>
+</header>
+
+<style>
+  [data-nav] {
+    background: color-mix(in srgb, white 94%, var(--menthe-fond));
+    backdrop-filter: blur(10px);
+  }
+  [data-nav].is-solid {
+    box-shadow: 0 1px 0 var(--filet), 0 4px 16px -8px rgba(20,40,25,.15);
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 100%;
+    bottom: -2px;
+    height: 2px;
+    background: var(--vert-marque);
+    transition: right .2s ease;
+  }
+  .nav-link:hover::after { right: 0; }
+</style>
+
+<script>
+  const nav = document.querySelector('[data-nav]');
+  const onScroll = () => {
+    if (window.scrollY > 80) nav?.classList.add('is-solid');
+    else nav?.classList.remove('is-solid');
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('mobile-menu');
+  burger?.addEventListener('click', () => {
+    const isOpen = menu?.classList.contains('flex');
+    if (isOpen) {
+      menu?.classList.remove('flex');
+      menu?.classList.add('hidden');
+      burger.setAttribute('aria-expanded', 'false');
+    } else {
+      menu?.classList.remove('hidden');
+      menu?.classList.add('flex');
+      burger.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  menu?.querySelectorAll('a').forEach((a) =>
+    a.addEventListener('click', () => {
+      menu.classList.remove('flex');
+      menu.classList.add('hidden');
+      burger?.setAttribute('aria-expanded', 'false');
+    })
+  );
+</script>

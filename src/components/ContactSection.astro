@@ -1,0 +1,55 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+import { issuer, arrangerContact } from '../data/operation';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+<section id="contact" class="py-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-2xl mb-12 reveal-group">
+      <div class="eyebrow reveal-item mb-3">{t.contact.eyebrow}</div>
+      <h2 class="reveal-item font-display font-bold text-3xl md:text-4xl text-charbon">{t.contact.title}</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 reveal-group">
+      <div class="reveal-item bg-white border border-filet rounded-card p-7 shadow-soft contact-card">
+        <span class="eyebrow">{t.contact.issuerRole}</span>
+        <h3 class="font-display font-semibold text-lg mt-2 mb-5">{issuer.legalName}</h3>
+        <dl class="space-y-3 text-sm">
+          <div class="flex gap-3"><Icon name="tabler:map-pin" class="w-4 h-4 text-vert-foret shrink-0 mt-0.5" /><span>{issuer.hqAddress}</span></div>
+          {issuer.phones.map((p) => (
+            <div class="flex gap-3"><Icon name="tabler:phone" class="w-4 h-4 text-vert-foret shrink-0 mt-0.5" /><a href={`tel:${p.replace(/\s/g,'')}`} class="tabular hover:text-vert-foret">{p}</a></div>
+          ))}
+          <div class="flex gap-3"><Icon name="tabler:mail" class="w-4 h-4 text-vert-foret shrink-0 mt-0.5" /><a href={`mailto:${issuer.email}`} class="hover:text-vert-foret">{issuer.email}</a></div>
+          <div class="flex gap-3"><Icon name="tabler:world" class="w-4 h-4 text-vert-foret shrink-0 mt-0.5" /><a href={`https://${issuer.website}`} class="hover:text-vert-foret">{issuer.website}</a></div>
+        </dl>
+      </div>
+
+      <div class="reveal-item bg-white border border-filet rounded-card p-7 shadow-soft contact-card">
+        <span class="eyebrow">{t.contact.arrangerRole}</span>
+        <h3 class="font-display font-semibold text-lg mt-2 mb-5">{arrangerContact.name}</h3>
+        <dl class="space-y-3 text-sm">
+          <div class="flex gap-3"><Icon name="tabler:map-pin" class="w-4 h-4 text-vert-foret shrink-0 mt-0.5" /><span>{arrangerContact.address}</span></div>
+          <div class="flex gap-3"><Icon name="tabler:phone" class="w-4 h-4 text-vert-foret shrink-0 mt-0.5" /><a href={`tel:${arrangerContact.phone.replace(/\s/g,'')}`} class="tabular hover:text-vert-foret">{arrangerContact.phone}</a></div>
+          <div class="flex gap-3"><Icon name="tabler:mail" class="w-4 h-4 text-vert-foret shrink-0 mt-0.5" /><a href={`mailto:${arrangerContact.email}`} class="hover:text-vert-foret">{arrangerContact.email}</a></div>
+          <div class="flex gap-3"><Icon name="tabler:world" class="w-4 h-4 text-vert-foret shrink-0 mt-0.5" /><a href={`https://${arrangerContact.website}`} class="hover:text-vert-foret">{arrangerContact.website}</a></div>
+          <div class="flex gap-3"><Icon name="tabler:certificate" class="w-4 h-4 text-vert-foret shrink-0 mt-0.5" /><span>{t.contact.approval} : {arrangerContact.cosumafApproval}</span></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--vert-marque);
+  }
+  .contact-card {
+    transition: transform .2s ease, border-color .2s ease;
+  }
+</style>

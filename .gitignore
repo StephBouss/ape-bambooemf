@@ -1,0 +1,23 @@
+# build
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+
+# env
+.env
+.env.production
+
+# editors
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# source assets bruts (non utilisés par le site buildé)
+assets/

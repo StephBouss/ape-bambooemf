@@ -1,0 +1,25 @@
+---
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+import { promoVideo } from '../data/operation';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+<section id="video" class="py-24 bg-white border-y border-filet">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-2xl mb-10 reveal-group">
+      <div class="eyebrow reveal-item mb-3">{t.video.eyebrow}</div>
+      <h2 class="reveal-item font-display font-bold text-3xl md:text-4xl text-charbon">{t.video.title}</h2>
+      <p class="reveal-item text-muted mt-3">{t.video.lead}</p>
+    </div>
+
+    <div class="reveal-item rounded-card overflow-hidden border border-filet shadow-soft bg-charbon">
+      <video controls preload="metadata" playsinline class="w-full h-auto block">
+        <source src={promoVideo.src} type="video/mp4" />
+        {t.video.unsupported}
+      </video>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,137 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+import { syndicate } from '../data/operation';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+function initials(name: string): string {
+  const words = name.replace(/\(.*?\)/g, '').trim().split(/\s+/);
+  return (words[0]?.[0] ?? '') + (words[1]?.[0] ?? '');
+}
+---
+<section id="syndicat" class="py-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-8 reveal-group">
+      <div>
+        <div class="eyebrow reveal-item mb-3">{t.syndicate.eyebrow}</div>
+        <h2 class="reveal-item font-display font-bold text-3xl md:text-4xl text-charbon">{t.syndicate.title}</h2>
+      </div>
+      <div class="reveal-item inline-flex items-center gap-2 bg-jaune-taux text-charbon text-xs font-bold uppercase tracking-wide rounded-full px-4 py-2.5 shrink-0">
+        <Icon name="tabler:star-filled" class="w-3.5 h-3.5" />
+        {t.syndicate.banner}
+      </div>
+    </div>
+
+    <div class="syn-table overflow-x-auto rounded-card border border-filet shadow-soft">
+      <table class="w-full text-sm min-w-[720px] border-collapse">
+        <thead>
+          <tr class="bg-charbon text-white text-xs uppercase tracking-wide">
+            <th class="text-left font-semibold px-6 py-3.5">{t.syndicate.colAgent}</th>
+            <th class="text-left font-semibold px-6 py-3.5 w-40">{t.syndicate.colCountry}</th>
+            <th class="text-left font-semibold px-6 py-3.5">{t.syndicate.colAddress}</th>
+          </tr>
+        </thead>
+        {syndicate.map((group, gi) => (
+          <tbody class="table-rows syn-group">
+            {gi > 0 && (
+              <tr class="syn-gap" aria-hidden="true"><td colspan="3"></td></tr>
+            )}
+            <tr class="syn-country-head">
+              <td colspan="3">
+                <img src={`/img/flags/${group.flag}.png`} alt="" width="20" height="14" class="rounded-sm" />
+                <span>{group.country}</span>
+                <span class="syn-count">
+                  · {group.members.length} {group.members.length > 1 ? t.syndicate.membersSuffix : t.syndicate.memberSuffix}
+                </span>
+              </td>
+            </tr>
+            {group.members.map((m) => (
+              <tr class="border-b border-filet last:border-0 hover:bg-menthe-fond/50 transition-colors">
+                <td class="px-6 py-3.5 align-top">
+                  <div class="flex items-center gap-3">
+                    <span class="syn-logo">
+                      {m.logo ? (
+                        <img src={`/img/syndicate/${m.logo}`} alt="" />
+                      ) : (
+                        <span class="syn-logo-fallback">{initials(m.name)}</span>
+                      )}
+                    </span>
+                    <span class="font-semibold">
+                      {m.name}
+                      {m.role === 'chef-de-file' && (
+                        <span class="ml-2 inline-block text-[10px] font-bold uppercase tracking-wide bg-jaune-taux/80 text-charbon rounded-full px-2 py-0.5 align-middle">
+                          {t.syndicate.chefDeFileTag}
+                        </span>
+                      )}
+                    </span>
+                  </div>
+                </td>
+                <td class="px-6 py-3.5 align-top text-muted">{group.country}</td>
+                <td class="px-6 py-3.5 align-top text-muted">
+                  {m.address}
+                  {m.phone && <div class="tabular mt-0.5"><a href={`tel:${m.phone.replace(/\s/g,'')}`} class="hover:text-vert-foret">{m.phone}</a></div>}
+                  {m.website && <div class="mt-0.5"><a href={`https://${m.website}`} class="hover:text-vert-foret">{m.website}</a></div>}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        ))}
+      </table>
+    </div>
+
+    <p class="reveal-item text-xs text-muted mt-6">{t.syndicate.footnote}</p>
+  </div>
+</section>
+
+<style>
+  .syn-country-head td {
+    background: var(--menthe-fond);
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 0.7rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 2px solid var(--vert-foret);
+  }
+  .syn-count { color: var(--muted); font-weight: 500; }
+
+  /* séparation entre les blocs pays : bande neutre visible, sans 2e couleur criarde */
+  .syn-gap td {
+    padding: 0;
+    height: 16px;
+    background: var(--filet);
+    border: 0;
+  }
+
+  .syn-logo {
+    width: 88px;
+    height: 56px;
+    border-radius: 10px;
+    border: 1px solid var(--filet);
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .syn-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 6px;
+  }
+  .syn-logo-fallback {
+    font-family: var(--font-display, inherit);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+  }
+</style>

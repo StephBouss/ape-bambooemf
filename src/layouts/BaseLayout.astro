@@ -1,0 +1,58 @@
+---
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
+import '@fontsource/poppins/700.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '../styles/tokens.css';
+import Nav from '../components/Nav.astro';
+import ScrollProgress from '../components/ScrollProgress.astro';
+import Footer from '../components/Footer.astro';
+import type { Lang } from '../i18n/utils';
+import { useTranslations, alternateLang, pathForLang } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const alt = alternateLang(lang);
+const canonical = new URL(pathForLang(lang), Astro.site).toString();
+const altUrl = new URL(pathForLang(alt), Astro.site).toString();
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{t.meta.title}</title>
+    <meta name="description" content={t.meta.description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="fr" href={new URL('/', Astro.site).toString()} />
+    <link rel="alternate" hreflang="en" href={new URL('/en', Astro.site).toString()} />
+    <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site).toString()} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={t.meta.ogTitle} />
+    <meta property="og:description" content={t.meta.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/img/og-cover.jpg', Astro.site).toString()} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="theme-color" content="#1E7A2F" />
+  </head>
+  <body class="font-body text-encre bg-menthe-fond">
+    <ScrollProgress />
+    <Nav lang={lang} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+
+    <script>
+      import '../scripts/animations';
+    </script>
+  </body>
+</html>

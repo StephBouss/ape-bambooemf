@@ -1,0 +1,100 @@
+---
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+<section id="operation" class="py-24 bg-white border-y border-filet">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-2xl mb-12 reveal-group">
+      <div class="eyebrow reveal-item mb-3">{t.operation.eyebrow}</div>
+      <h2 class="reveal-item font-display font-bold text-3xl md:text-4xl text-charbon">{t.operation.title}</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12 reveal-group">
+      {t.operation.summaryCards.map((c) => (
+        <div class={`reveal-item rounded-card p-6 border card-${c.color}`}>
+          <div class="font-display font-bold text-2xl tabular">{c.value}</div>
+          <div class="text-xs opacity-80 mt-1">{c.label}</div>
+          {c.sub && <div class="text-[11px] opacity-70 mt-0.5 tabular">{c.sub}</div>}
+        </div>
+      ))}
+    </div>
+
+    <div class="grid lg:grid-cols-[2fr_1fr] gap-6 items-start">
+      <div class="spec-table overflow-x-auto rounded-card border border-filet shadow-soft">
+        <table class="w-full text-sm min-w-[560px] border-collapse">
+          <caption class="text-left text-sm font-display font-semibold text-white bg-vert-foret px-6 py-4 caption-top">
+            {t.operation.tableCaption}
+          </caption>
+          <tbody class="table-rows">
+            {t.operation.rows.map((row) => (
+              <tr class="transition-colors hover:bg-jaune-taux/10">
+                <th>{row.k}</th>
+                <td class="tabular">
+                  {row.v ?? <span class="italic font-normal text-muted/80">{t.operation.unconfirmed}</span>}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <slot name="flux" />
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-8 mt-14 reveal-group">
+      <div class="reveal-item">
+        <h4 class="font-display font-semibold text-sm text-charbon mb-2">{t.operation.objetTitle}</h4>
+        <p class="text-sm text-muted leading-relaxed">{t.operation.objetText}</p>
+      </div>
+      <div class="reveal-item">
+        <h4 class="font-display font-semibold text-sm text-charbon mb-2">{t.operation.privilegeTitle}</h4>
+        <p class="text-sm text-muted leading-relaxed">{t.operation.privilegeText}</p>
+      </div>
+      <div class="reveal-item">
+        <h4 class="font-display font-semibold text-sm text-charbon mb-2">{t.operation.fiscalTitle}</h4>
+        <p class="text-sm text-muted leading-relaxed">{t.operation.fiscalText}</p>
+      </div>
+      <div class="reveal-item">
+        <h4 class="font-display font-semibold text-sm text-charbon mb-2">{t.operation.litigeTitle}</h4>
+        <p class="text-sm text-muted leading-relaxed">{t.operation.litigeText}</p>
+      </div>
+    </div>
+
+    <p class="reveal-item text-xs text-muted/80 italic border-t border-filet mt-10 pt-6">{t.operation.devNote}</p>
+  </div>
+</section>
+
+<style>
+  .card-green { background: var(--vert-foret); border-color: var(--vert-foret); color: #fff; }
+  .card-yellow { background: var(--jaune-taux); border-color: var(--jaune-taux); color: var(--charbon); }
+  .card-blue { background: var(--bleu-roi); border-color: var(--bleu-roi); color: #fff; }
+
+  .spec-table th,
+  .spec-table td {
+    text-align: left;
+    padding: 0.9rem 1.5rem;
+    border-bottom: 1px solid var(--filet);
+  }
+  .spec-table tr:last-child th,
+  .spec-table tr:last-child td {
+    border-bottom: 0;
+  }
+  .spec-table th {
+    width: 40%;
+    font-weight: 600;
+    color: var(--navy);
+    background: var(--menthe-fond);
+    border-right: 1px solid var(--filet);
+  }
+  .spec-table td {
+    font-weight: 700;
+    color: var(--encre);
+    background: #fff;
+  }
+  .spec-table tr:nth-child(even) th { background: color-mix(in srgb, var(--menthe-fond) 70%, white); }
+  .spec-table tr:nth-child(even) td { background: color-mix(in srgb, var(--vert-marque) 4%, white); }
+</style>

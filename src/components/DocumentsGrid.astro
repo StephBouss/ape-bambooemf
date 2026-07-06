@@ -1,0 +1,60 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+import { documents } from '../data/operation';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const iconFor: Record<string, string> = {
+  'note-information': 'tabler:file-certificate',
+  'bulletin-souscription': 'tabler:forms',
+  'resume-executif': 'tabler:report',
+  'depliant-presentation': 'tabler:file-description',
+};
+---
+<section id="documents" class="py-24 bg-white border-y border-filet">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-2xl mb-12 reveal-group">
+      <div class="eyebrow reveal-item mb-3">{t.documents.eyebrow}</div>
+      <h2 class="reveal-item font-display font-bold text-3xl md:text-4xl text-charbon">{t.documents.title}</h2>
+      <p class="reveal-item text-muted mt-3">{t.documents.lead}</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 reveal-group">
+      {documents.map((doc) => (
+        <div class="reveal-item doc-card flex flex-col gap-4 bg-menthe-fond border border-filet rounded-card p-6 transition-all">
+          <div class="w-11 h-11 rounded-lg bg-vert-marque/15 text-vert-foret flex items-center justify-center">
+            <Icon name={iconFor[doc.id]} class="w-5 h-5" />
+          </div>
+          <h3 class="font-display font-semibold text-sm text-charbon leading-snug">{doc.title}</h3>
+          <p class="text-xs text-muted -mt-2">{doc.subtitle}</p>
+          {doc.href ? (
+            <a
+              href={doc.href}
+              download
+              class="mt-auto inline-flex items-center justify-center gap-2 bg-vert-marque text-white text-xs font-bold rounded-full px-4 py-2.5 hover:bg-vert-foret transition-colors group"
+            >
+              <Icon name="tabler:download" class="w-3.5 h-3.5 transition-transform group-hover:translate-y-0.5" />
+              {t.documents.download}
+            </a>
+          ) : (
+            <span class="mt-auto inline-flex items-center justify-center gap-2 bg-filet/70 text-muted text-xs font-bold rounded-full px-4 py-2.5 cursor-not-allowed">
+              {t.documents.soon}
+            </span>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .doc-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--vert-marque);
+    box-shadow: 0 8px 24px -12px rgba(30,50,30,.25);
+  }
+</style>

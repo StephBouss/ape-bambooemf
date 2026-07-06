@@ -1,0 +1,148 @@
+{
+  "meta": {
+    "title": "EO BAMBOO EMF 7,25% Brut 2026-2029 — Appel Public à l'Épargne",
+    "description": "Emprunt Obligataire par Appel Public à l'Épargne de Bamboo Microfinance : 5 milliards FCFA, 7,25% brut/an sur 3 ans. Visa COSUMAF N° COSUMAF-APE-03/26.",
+    "ogTitle": "EO BAMBOO EMF 7,25% Brut 2026-2029"
+  },
+  "nav": {
+    "accueil": "Accueil",
+    "emetteur": "L'Émetteur",
+    "operation": "L'Opération",
+    "syndicat": "Syndicat de placement",
+    "documents": "Documents",
+    "contact": "Contact",
+    "langSwitch": "EN"
+  },
+  "hero": {
+    "visaPill": "Opération visée COSUMAF N° COSUMAF-APE-03/26",
+    "title": "Emprunt Obligataire par Appel Public à l'Épargne",
+    "badgeAmount": "Montant de l'émission : 5 milliards FCFA",
+    "badgeRate": "7,25% brut/an sur 3 ans",
+    "quote": "Votre investissement, transformé en financement réel des entrepreneurs et des ménages.",
+    "miniList": [
+      { "label": "Valeur Nominale", "value": "1 000 FCFA" },
+      { "label": "Nombre d'obligations", "value": "5 000 000" },
+      { "label": "Période de souscription", "value": "Du 15 juillet au 12 octobre 2026" },
+      { "label": "Minimum de souscription", "value": "50 obligations, soit 50 000 FCFA" }
+    ],
+    "ctaPrimary": "Télécharger les documents",
+    "ctaSecondary": "Découvrir l'opération",
+    "footNote": "Pour plus d'informations : ape-bambooemf.com"
+  },
+  "countdown": {
+    "label": "Clôture de la souscription dans",
+    "days": "Jours",
+    "hours": "Heures",
+    "minutes": "Minutes",
+    "seconds": "Secondes",
+    "statusOpen": "Souscription ouverte — 15 juil. au 12 oct. 2026",
+    "statusClosed": "Souscription clôturée"
+  },
+  "video": {
+    "eyebrow": "Présentation",
+    "title": "Découvrir l'opération en vidéo",
+    "lead": "Un aperçu rapide de l'émission EO BAMBOO EMF 7,25% Brut 2026-2029.",
+    "unsupported": "Votre navigateur ne prend pas en charge la lecture vidéo."
+  },
+  "issuer": {
+    "eyebrow": "L'Émetteur",
+    "title": "Bamboo Microfinance",
+    "lead": "Bamboo Microfinance est un établissement de microfinance agréé par la Commission Bancaire de l'Afrique Centrale (COBAC), opérant au Gabon depuis plus d'une décennie. Sa mission : offrir des services financiers accessibles aux entrepreneurs, aux ménages et aux TPE/PME exclus du système bancaire classique.",
+    "whyTitle": "Pourquoi cette émission ?",
+    "cardTitle": "Fiche signalétique",
+    "cardStatus": "Statut",
+    "cardLegalForm": "Forme juridique",
+    "cardHq": "Siège social",
+    "cardNetwork": "Réseau d'agences",
+    "cardContact": "Contact",
+    "docRef": "Mission, vision, valeurs et chiffres clés détaillés → Partie 5 du Document d'Information."
+  },
+  "operation": {
+    "eyebrow": "L'Opération",
+    "title": "Caractéristiques de l'émission",
+    "summaryCards": [
+      { "label": "Montant total", "value": "5 Mds FCFA", "color": "green" },
+      { "label": "Taux d'intérêt", "value": "7,25%", "color": "yellow" },
+      { "label": "Valeur nominale", "value": "1 000 FCFA", "color": "blue" },
+      { "label": "Maturité", "value": "3 ans", "sub": "2026-2029", "color": "green" }
+    ],
+    "tableCaption": "Fiche synthétique — EO BAMBOO EMF 7,25% Brut 2026-2029",
+    "rows": [
+      { "k": "Émetteur", "v": "Bamboo Microfinance S.A." },
+      { "k": "Forme juridique", "v": "Société Anonyme (S.A.)" },
+      { "k": "Visa COSUMAF", "v": "N° COSUMAF-APE-03/26" },
+      { "k": "Nature des titres", "v": "Obligations à taux fixe, dématérialisées" },
+      { "k": "Montant de l'émission", "v": "5 000 000 000 FCFA" },
+      { "k": "Nombre d'obligations", "v": "5 000 000" },
+      { "k": "Valeur nominale", "v": "1 000 FCFA" },
+      { "k": "Prix de souscription", "v": "1 000 FCFA (100% au pair)" },
+      { "k": "Taux d'intérêt", "v": "7,25% brut / an" },
+      { "k": "Durée", "v": "3 ans" },
+      { "k": "Date de jouissance", "v": null },
+      { "k": "Date d'échéance", "v": null },
+      { "k": "Période de souscription", "v": "15 juillet – 12 octobre 2026" },
+      { "k": "Minimum de souscription", "v": "50 obligations — 50 000 FCFA" },
+      { "k": "Personnes éligibles", "v": "Toute personne physique ou morale" },
+      { "k": "Paiement des intérêts", "v": "Semestriellement, à partir de la date de jouissance" },
+      { "k": "Remboursement du capital", "v": "1 an de différé, puis chaque semestre pendant les 2 dernières années" },
+      { "k": "Cotation", "v": "BVMAC" },
+      { "k": "Arrangeur & Chef de file", "v": "Africa Bright Securities" }
+    ],
+    "unconfirmed": "voir le Document d'Information",
+    "objetTitle": "Objet des fonds",
+    "objetText": "Financement des crédits octroyés à la clientèle : fonctionnaires, salariés du privé et commerçants.",
+    "privilegeTitle": "Privilège des obligataires",
+    "privilegeText": "Sûretés de premier rang au profit de la masse des obligataires.",
+    "fiscalTitle": "Régime fiscal & constitution de la masse",
+    "fiscalText": "Se référer au Document d'Information.",
+    "litigeTitle": "Règlement des litiges",
+    "litigeText": "Se référer au Document d'Information.",
+    "devNote": "Les modalités exactes d'amortissement, la date de jouissance et l'échéance seront figées sur le Document d'Information visé."
+  },
+  "flux": {
+    "title": "Flux annuels",
+    "legendInterets": "Intérêts seuls",
+    "legendInteretsCapital": "Intérêts + Capital",
+    "legendRemboursement": "Remboursement total"
+  },
+  "syndicate": {
+    "eyebrow": "Syndicat de placement",
+    "title": "Agents Placeurs",
+    "banner": "Arrangeur & Chef de file : Africa Bright Securities",
+    "colAgent": "Agent placeur",
+    "colCountry": "Pays",
+    "colAddress": "Adresse",
+    "membersSuffix": "membres",
+    "memberSuffix": "membre",
+    "chefDeFileTag": "Chef de file",
+    "footnote": "Les souscriptions peuvent être déposées auprès de l'un des agents placeurs agréés ci-dessus, pendant la période de souscription du 15 juillet au 12 octobre 2026."
+  },
+  "documents": {
+    "eyebrow": "Documents",
+    "title": "Documentation officielle",
+    "lead": "Téléchargement en un clic, sans inscription.",
+    "download": "Télécharger",
+    "soon": "Bientôt disponible"
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Émetteur & Arrangeur",
+    "issuerRole": "Émetteur",
+    "arrangerRole": "Arrangeur & Chef de file",
+    "address": "Adresse",
+    "phone": "Téléphone",
+    "email": "Email",
+    "website": "Site",
+    "approval": "Agrément"
+  },
+  "disclaimer": {
+    "label": "Avertissement réglementaire",
+    "text": "Conformément aux dispositions régissant l'Appel Public à l'Épargne en zone CEMAC, cette opération a été autorisée par la Commission de Surveillance du Marché Financier de l'Afrique Centrale (COSUMAF), sous le Visa N° COSUMAF-APE-03/26. L'attention des investisseurs potentiels est attirée sur le fait qu'un investissement financier comporte des risques et que la valeur des titres est susceptible d'évoluer à la hausse comme à la baisse, sous l'influence de facteurs internes ou externes à l'Émetteur. L'octroi par la COSUMAF d'un visa n'implique ni approbation de l'opportunité de l'opération, ni authentification des informations contenues dans le document d'information ; il a été attribué après examen de la pertinence et de la cohérence de l'information. Lire attentivement la note d'information avant toute décision d'investissement."
+  },
+  "footer": {
+    "legalNotice": "Les informations contenues sur ce site sont fournies à titre informatif uniquement et ne constituent ni une offre de vente ni une sollicitation d'achat de titres. Toute décision d'investissement doit être fondée exclusivement sur le Document d'Information relatif à l'opération, enregistré sous le numéro COSUMAF-APE-03/26.",
+    "line1": "Visa par la COSUMAF N° COSUMAF-APE-03/26 · Coté à la BVMAC",
+    "line2": "© 2026 Bamboo Microfinance S.A. — Tous droits réservés",
+    "activePeriod": "Site temporaire, actif du 15/07 au 12/10/2026"
+  }
+}

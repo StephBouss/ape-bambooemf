@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import CountdownBar from '../components/CountdownBar.astro';
+import IssuerSection from '../components/IssuerSection.astro';
+import VideoSection from '../components/VideoSection.astro';
+import SpecTable from '../components/SpecTable.astro';
+import FluxChart from '../components/FluxChart.astro';
+import SyndicateTable from '../components/SyndicateTable.astro';
+import DocumentsGrid from '../components/DocumentsGrid.astro';
+import ContactSection from '../components/ContactSection.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+
+const lang = 'fr' as const;
+---
+<BaseLayout lang={lang}>
+  <Hero lang={lang} />
+  <CountdownBar lang={lang} />
+  <IssuerSection lang={lang} />
+  <VideoSection lang={lang} />
+  <SpecTable lang={lang}>
+    <FluxChart lang={lang} slot="flux" />
+  </SpecTable>
+  <SyndicateTable lang={lang} />
+  <DocumentsGrid lang={lang} />
+  <ContactSection lang={lang} />
+  <Disclaimer lang={lang} />
+</BaseLayout>
