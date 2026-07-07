@@ -11,19 +11,20 @@ const t = useTranslations(lang);
   <div class="absolute inset-0 bg-hero-halo pointer-events-none"></div>
 
   <!-- Photo officielle : groupe + bâtiment + dégradé + feuilles déjà composés dans le fichier.
-       Masquée sous md : en gros plan sur mobile elle rend le texte illisible ; le dégradé de
-       marque (bg-hero-gradient) sert alors seul de fond, avec un contraste garanti. -->
+       Masquée sous xl : entre md et lg, la colonne de texte (max-w-lg) occupe une trop
+       grande part de la largeur et un visage se retrouve sous la citation, illisible.
+       Le dégradé de marque (bg-hero-gradient) sert alors seul de fond, avec un contraste garanti. -->
   <img
     src="/img/hero-photo.jpg"
     alt=""
     aria-hidden="true"
-    class="hidden md:block absolute inset-0 w-full h-full object-cover object-[75%_center]"
+    class="hidden xl:block absolute inset-0 w-full h-full object-cover object-[75%_center]"
     onerror="this.style.display='none'"
   />
 
   <!-- Scrim : garantit le contraste AA du texte sur la photo (§7 Accessibilité) -->
   <div
-    class="hidden md:block absolute inset-0 pointer-events-none"
+    class="hidden xl:block absolute inset-0 pointer-events-none"
     style="background: radial-gradient(120% 100% at 0% 15%, var(--menthe-fond) 0%, color-mix(in srgb, var(--menthe-fond) 75%, transparent) 32%, transparent 62%);"
   ></div>
 

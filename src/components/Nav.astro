@@ -33,7 +33,7 @@ const links = [
       </span>
     </a>
 
-    <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-muted">
+    <ul class="hidden lg:flex items-center gap-8 text-sm font-medium text-muted">
       {links.map((l) => (
         <li>
           <a href={l.href} class="nav-link relative py-1 hover:text-vert-foret transition-colors">
@@ -43,7 +43,7 @@ const links = [
       ))}
     </ul>
 
-    <div class="hidden md:flex items-center gap-3">
+    <div class="hidden lg:flex items-center gap-3">
       <a
         href={altHref}
         class="text-xs font-bold border border-filet rounded-full px-3 py-1.5 hover:border-vert-marque hover:text-vert-foret transition-colors"
@@ -52,12 +52,12 @@ const links = [
       </a>
     </div>
 
-    <button id="burger" class="md:hidden w-10 h-10 flex items-center justify-center" aria-label="Menu" aria-expanded="false">
+    <button id="burger" class="lg:hidden w-10 h-10 flex items-center justify-center" aria-label="Menu" aria-expanded="false">
       <Icon name="tabler:menu-2" class="w-6 h-6 text-charbon" id="burger-icon" />
     </button>
   </nav>
 
-  <div id="mobile-menu" class="md:hidden hidden flex-col gap-1 px-6 pb-6 bg-white/95 backdrop-blur border-t border-filet">
+  <div id="mobile-menu" class="lg:hidden hidden flex-col gap-1 px-6 pb-6 bg-white/95 backdrop-blur border-t border-filet">
     {links.map((l) => (
       <a href={l.href} class="py-3 text-sm font-medium text-encre border-b border-filet last:border-0">{l.label}</a>
     ))}
