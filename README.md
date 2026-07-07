@@ -55,8 +55,7 @@ public/
 4. **Image de partage Open Graph** : `public/img/og-cover.jpg` (1200×630) — pas encore fournie.
 
 5. ~~Logo définitif~~ — fourni (`public/img/logo.png`), déjà branché dans `Nav.astro`.
-   `public/favicon.svg` reste un placeholder géométrique (à remplacer par une version
-   carrée/icône du logo si besoin d'un favicon plus fidèle).
+   ~~Favicon~~ — fourni (`public/favicon.png`), déjà branché dans `BaseLayout.astro`.
 
 6. **Modalités d'amortissement exactes** (`src/data/operation.ts` → `fluxAnnuels`) : le
    panneau "Flux annuels" utilise une répartition qualitative par année (intérêts seuls
