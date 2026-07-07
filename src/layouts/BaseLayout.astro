@@ -11,6 +11,7 @@ import ScrollProgress from '../components/ScrollProgress.astro';
 import Footer from '../components/Footer.astro';
 import type { Lang } from '../i18n/utils';
 import { useTranslations, alternateLang, pathForLang } from '../i18n/utils';
+import { operation, issuer, arrangerContact } from '../data/operation';
 
 interface Props {
   lang: Lang;
@@ -20,6 +21,29 @@ const t = useTranslations(lang);
 const alt = alternateLang(lang);
 const canonical = new URL(pathForLang(lang), Astro.site).toString();
 const altUrl = new URL(pathForLang(alt), Astro.site).toString();
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FinancialProduct',
+  name: operation.title,
+  description: t.meta.description,
+  url: canonical,
+  category: operation.nature,
+  interestRate: operation.interestRate,
+  provider: {
+    '@type': 'Organization',
+    name: issuer.name,
+    legalName: issuer.legalName,
+    url: `https://${issuer.website}`,
+    address: issuer.hqAddress,
+    telephone: issuer.phones[0],
+  },
+  broker: {
+    '@type': 'Organization',
+    name: arrangerContact.name,
+    url: `https://${arrangerContact.website}`,
+  },
+};
 ---
 <!doctype html>
 <html lang={lang}>
@@ -42,6 +66,7 @@ const altUrl = new URL(pathForLang(alt), Astro.site).toString();
     <meta name="twitter:card" content="summary_large_image" />
 
     <meta name="theme-color" content="#1E7A2F" />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body class="font-body text-encre bg-menthe-fond">
     <ScrollProgress />

@@ -34,7 +34,7 @@ public/
   documents/                  — PDF officiels déjà fournis (bulletin, dépliant), liés en téléchargement
   video/spot-ape.mp4          — vidéo de présentation, lue dans la section #video (VideoSection.astro)
   img/flags/                  — drapeaux du syndicat de placement
-  favicon.svg                 — placeholder, à remplacer par le logo définitif
+  robots.txt                  — autorise l'indexation, référence le sitemap
 ```
 
 ## ⚠️ Placeholders à remplacer avant mise en ligne
@@ -76,6 +76,29 @@ public/
 Toutes les animations (GSAP/ScrollTrigger, Lenis, count-up, feuilles flottantes) sont
 désactivées si `prefers-reduced-motion: reduce` est actif côté utilisateur — le contenu
 reste alors visible immédiatement, sans dégradation.
+
+## SEO / Référencement Google
+
+Ce qui est déjà en place côté code :
+- **Sitemap XML** généré automatiquement au build (`@astrojs/sitemap`) → `sitemap-index.xml` / `sitemap-0.xml`
+- **`robots.txt`** (`public/robots.txt`) : autorise le crawl et référence le sitemap
+- **Balises meta** : title, description, canonical, hreflang FR/EN, Open Graph, Twitter Card (`BaseLayout.astro`)
+- **Données structurées JSON-LD** (schema.org `FinancialProduct`) : nom, taux, émetteur, arrangeur —
+  aide Google à comprendre la nature de l'opération
+
+Ce qui reste à faire manuellement, une fois le site en ligne sur le domaine final
+(nécessite un compte Google, pas automatisable) :
+1. Créer/ouvrir [Google Search Console](https://search.google.com/search-console)
+2. Ajouter la propriété `ape-bambooemf.com` (vérification par balise HTML, DNS, ou fichier —
+   Search Console guide pas à pas)
+3. Une fois vérifié, soumettre `https://ape-bambooemf.com/sitemap-index.xml` dans
+   Search Console → Sitemaps
+4. Demander l'indexation de la page d'accueil via l'outil "Inspection d'URL" pour accélérer
+   la première prise en compte (sinon Google la découvre seul en quelques jours/semaines)
+
+Le référencement effectif (apparition dans les résultats) prend généralement de quelques
+jours à plusieurs semaines après soumission, et dépend aussi de facteurs hors du site
+(liens entrants, ancienneté du domaine, etc.).
 
 ## Déploiement
 
