@@ -16,10 +16,30 @@ const t = useTranslations(lang);
     </div>
 
     <div class="reveal-item rounded-card overflow-hidden border border-filet shadow-soft bg-charbon">
-      <video controls preload="metadata" playsinline class="w-full h-auto block">
+      <video id="promo-video" controls muted playsinline preload="metadata" class="w-full h-auto block">
         <source src={promoVideo.src} type="video/mp4" />
         {t.video.unsupported}
       </video>
     </div>
   </div>
 </section>
+
+<script>
+  const video = document.getElementById('promo-video') as HTMLVideoElement | null;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (video && !prefersReducedMotion) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+            observer.disconnect();
+          }
+        }
+      },
+      { threshold: 0.5 },
+    );
+    observer.observe(video);
+  }
+</script>
