@@ -16,7 +16,7 @@ const t = useTranslations(lang);
     </div>
 
     <div class="reveal-item rounded-card overflow-hidden border border-filet shadow-soft bg-charbon">
-      <video id="promo-video" controls muted playsinline preload="metadata" class="w-full h-auto block">
+      <video id="promo-video" controls playsinline preload="metadata" class="w-full h-auto block">
         <source src={promoVideo.src} type="video/mp4" />
         {t.video.unsupported}
       </video>
@@ -33,7 +33,13 @@ const t = useTranslations(lang);
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            video.play().catch(() => {});
+            video.play().catch(() => {
+              // Autoplay avec son refusé par le navigateur (politique standard sans
+              // interaction préalable de l'utilisateur avec le site) : on retente en
+              // muet pour que la vidéo démarre quand même visuellement.
+              video.muted = true;
+              video.play().catch(() => {});
+            });
             observer.disconnect();
           }
         }
