@@ -52,7 +52,8 @@ public/
 
 3. ~~Photo du hero~~ — fournie (`public/img/hero-photo.jpg`), déjà en place.
 
-4. **Image de partage Open Graph** : `public/img/og-cover.jpg` (1200×630) — pas encore fournie.
+4. ~~Image de partage Open Graph~~ — fournie (`public/img/og-cover.jpg`, 1200×630), déjà
+   référencée dans `BaseLayout.astro`.
 
 5. ~~Logo définitif~~ — fourni (`public/img/logo.png`), déjà branché dans `Nav.astro`.
    ~~Favicon~~ — fourni (`public/favicon.png`), déjà branché dans `BaseLayout.astro`.
