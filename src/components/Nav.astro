@@ -6,7 +6,10 @@ import { useTranslations, alternateLang, pathForLang } from '../i18n/utils';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const altHref = pathForLang(alternateLang(lang));
+const alt = alternateLang(lang);
+const altHref = pathForLang(alt);
+const flagFor: Record<Lang, string> = { fr: 'france', en: 'uk' };
+const altFlag = flagFor[alt];
 
 const links = [
   { href: '#accueil', label: t.nav.accueil },
@@ -46,9 +49,9 @@ const links = [
     <div class="hidden lg:flex items-center gap-3">
       <a
         href={altHref}
-        class="text-xs font-bold border border-filet rounded-full px-3 py-1.5 hover:border-vert-marque hover:text-vert-foret transition-colors"
+        class="flex items-center justify-center border border-filet rounded-full p-1.5 hover:border-vert-marque transition-colors"
       >
-        {t.nav.langSwitch}
+        <img src={`/img/flags/${altFlag}.svg`} alt={t.nav.langSwitch} width="20" height="14" class="rounded-sm" />
       </a>
     </div>
 
@@ -61,7 +64,10 @@ const links = [
     {links.map((l) => (
       <a href={l.href} class="py-3 text-sm font-medium text-encre border-b border-filet last:border-0">{l.label}</a>
     ))}
-    <a href={altHref} class="py-3 text-sm font-bold text-vert-foret">{t.nav.langSwitch}</a>
+    <a href={altHref} class="py-3 flex items-center gap-2 text-sm font-bold text-vert-foret">
+      <img src={`/img/flags/${altFlag}.svg`} alt="" width="20" height="14" class="rounded-sm" />
+      {t.nav.langSwitch}
+    </a>
   </div>
 </header>
 
