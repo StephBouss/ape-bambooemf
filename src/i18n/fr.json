@@ -22,8 +22,8 @@
     "miniList": [
       { "label": "Valeur Nominale", "value": "1 000 FCFA" },
       { "label": "Nombre d'obligations", "value": "5 000 000" },
-      { "label": "Période de souscription", "value": "Du 15 juillet au 12 octobre 2026" },
-      { "label": "Minimum de souscription", "value": "50 obligations, soit 50 000 FCFA" }
+      { "label": "Période de souscription", "value": "Du 15 juillet au 12 octobre 2026" },
+      { "label": "Minimum de souscription", "value": "50 obligations, soit 50 000 FCFA" }
     ],
     "ctaPrimary": "Télécharger les documents",
     "ctaSecondary": "Découvrir l'opération",
