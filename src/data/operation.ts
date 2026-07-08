@@ -45,7 +45,7 @@ export const issuer = {
   legalForm: 'Société Anonyme (S.A.)',
   regulator: "Commission Bancaire de l'Afrique Centrale (COBAC)",
   hqAddress: 'Avenue Boulevard Triomphal, Libreville, Gabon',
-  phones: ['+241 77 41 21 21', '+241 060 41 21 21'],
+  phones: ['+241 77 41 21 21', '+241 60 41 21 21'],
   email: 'service.client@bamboo-emf.com',
   website: 'www.bamboo-emf.com',
   agenciesSummary: '14 agences réparties dans le pays',
@@ -135,7 +135,6 @@ export const syndicate: SyndicateCountryGroup[] = [
       {
         name: 'BGFI Bourse',
         address: 'Boulevard du Bord de Mer, 3ème étage, Immeuble Odyssée — BP 2253 Libreville',
-        website: 'www.bgfibourse.com',
         logo: 'bgfi-bourse.png',
       },
     ],
