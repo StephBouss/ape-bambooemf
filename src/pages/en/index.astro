@@ -6,6 +6,7 @@ import IssuerSection from '../../components/IssuerSection.astro';
 // import VideoSection from '../../components/VideoSection.astro'; // masquée temporairement (poids vidéo/déploiement)
 import SpecTable from '../../components/SpecTable.astro';
 import FluxChart from '../../components/FluxChart.astro';
+import SimulatorSection from '../../components/SimulatorSection.astro';
 import SyndicateTable from '../../components/SyndicateTable.astro';
 import DocumentsGrid from '../../components/DocumentsGrid.astro';
 import ContactSection from '../../components/ContactSection.astro';
@@ -21,6 +22,7 @@ const lang = 'en' as const;
   <SpecTable lang={lang}>
     <FluxChart lang={lang} slot="flux" />
   </SpecTable>
+  <SimulatorSection lang={lang} />
   <SyndicateTable lang={lang} />
   <DocumentsGrid lang={lang} />
   <ContactSection lang={lang} />

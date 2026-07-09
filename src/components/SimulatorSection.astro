@@ -1,0 +1,131 @@
+---
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+import { operation } from '../data/operation';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+<section id="simulateur" class="py-24 bg-white border-y border-filet">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-2xl mb-12 reveal-group">
+      <div class="eyebrow reveal-item mb-3">{t.simulator.eyebrow}</div>
+      <h2 class="reveal-item font-display font-bold text-3xl md:text-4xl text-charbon">{t.simulator.title}</h2>
+      <p class="reveal-item text-muted mt-3">{t.simulator.lead}</p>
+    </div>
+
+    <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-6 reveal-group">
+      <div class="reveal-item bg-menthe-fond border border-filet rounded-card p-6 h-fit">
+        <div class="mb-5">
+          <label for="sim-residence" class="block text-xs font-semibold text-navy mb-2">{t.simulator.residenceLabel}</label>
+          <select id="sim-residence" class="w-full bg-white border border-filet rounded-lg px-3.5 py-2.5 text-sm font-medium">
+            <option value="hors-cemac">{t.simulator.residenceHorsCemac}</option>
+            <option value="cemac">{t.simulator.residenceCemac}</option>
+          </select>
+          <p id="sim-residence-note" class="hidden text-xs text-muted mt-2">{t.simulator.residenceNote}</p>
+        </div>
+
+        <div>
+          <label for="sim-amount" class="block text-xs font-semibold text-navy mb-2">{t.simulator.amountLabel}</label>
+          <input
+            id="sim-amount"
+            type="number"
+            inputmode="numeric"
+            step="1000"
+            min={operation.minAmount}
+            max={operation.amount}
+            value="1000000"
+            class="w-full bg-white border border-filet rounded-lg px-3.5 py-2.5 text-sm font-semibold tabular"
+          />
+          <p class="text-[11px] text-muted mt-2">{t.simulator.amountHint}</p>
+          <p id="sim-amount-warning" class="hidden text-xs font-semibold text-vert-foret mt-2"></p>
+        </div>
+      </div>
+
+      <div class="reveal-item bg-white border border-filet rounded-card p-6 shadow-soft">
+        <h3 class="eyebrow mb-4">{t.simulator.resultsTitle}</h3>
+        <dl class="grid sm:grid-cols-2 gap-x-6 gap-y-4 text-sm">
+          <div>
+            <dt class="text-xs text-muted">{t.simulator.resultNominal}</dt>
+            <dd class="font-semibold mt-0.5 tabular" data-sim="nominal">—</dd>
+          </div>
+          <div>
+            <dt class="text-xs text-muted">{t.simulator.resultCount}</dt>
+            <dd class="font-semibold mt-0.5 tabular" data-sim="count">—</dd>
+          </div>
+          <div>
+            <dt class="text-xs text-muted">{t.simulator.resultGrossRate}</dt>
+            <dd class="font-semibold mt-0.5 tabular" data-sim="grossRate">—</dd>
+          </div>
+          <div>
+            <dt class="text-xs text-muted">{t.simulator.resultTax}</dt>
+            <dd class="font-semibold mt-0.5 tabular" data-sim="tax">—</dd>
+          </div>
+          <div class="sm:col-span-2">
+            <dt class="text-xs text-muted">{t.simulator.resultNetRate}</dt>
+            <dd class="font-semibold mt-0.5 tabular" data-sim="netRate">—</dd>
+          </div>
+          <div class="sm:col-span-2 pt-3 border-t border-filet">
+            <dt class="text-xs text-muted">{t.simulator.resultTotalInterest}</dt>
+            <dd class="font-display font-bold text-lg text-vert-foret mt-0.5 tabular" data-sim="totalInterest">—</dd>
+          </div>
+          <div class="sm:col-span-2">
+            <dt class="text-xs text-muted">{t.simulator.resultMaturityCapital}</dt>
+            <dd class="font-display font-bold text-xl text-navy mt-0.5 tabular" data-sim="maturityCapital">—</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="mt-10 reveal-item">
+      <h3 class="font-display font-semibold text-sm text-charbon mb-4">{t.simulator.scheduleTitle}</h3>
+      <div class="sim-table overflow-x-auto rounded-card border border-filet shadow-soft">
+        <table class="w-full text-sm min-w-[720px] border-collapse">
+          <thead>
+            <tr class="bg-charbon text-white text-xs uppercase tracking-wide">
+              <th class="text-left font-semibold px-4 py-3">{t.simulator.colDate}</th>
+              <th class="text-right font-semibold px-4 py-3">{t.simulator.colStart}</th>
+              <th class="text-right font-semibold px-4 py-3">{t.simulator.colInterest}</th>
+              <th class="text-right font-semibold px-4 py-3">{t.simulator.colRepaid}</th>
+              <th class="text-right font-semibold px-4 py-3">{t.simulator.colTotal}</th>
+              <th class="text-right font-semibold px-4 py-3">{t.simulator.colEnd}</th>
+            </tr>
+          </thead>
+          <tbody id="sim-schedule-body"></tbody>
+          <tfoot>
+            <tr class="bg-menthe-fond font-bold border-t-2 border-filet">
+              <td class="px-4 py-3">{t.simulator.rowTotal}</td>
+              <td class="px-4 py-3 text-right">—</td>
+              <td class="px-4 py-3 text-right tabular" data-sim="totalInterestRow">—</td>
+              <td class="px-4 py-3 text-right tabular" data-sim="totalRepaidRow">—</td>
+              <td class="px-4 py-3 text-right tabular" data-sim="totalReceivedRow">—</td>
+              <td class="px-4 py-3 text-right">—</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <p class="reveal-item text-xs text-muted/80 italic border-t border-filet mt-8 pt-6">{t.simulator.disclaimer}</p>
+  </div>
+</section>
+
+<script define:vars={{
+  dates: t.simulator.dates,
+  nominal: operation.nominalValue,
+  maxAmount: operation.amount,
+  minAmount: operation.minAmount,
+  grossRate: operation.interestRate,
+  locale: lang === 'fr' ? 'fr-FR' : 'en-US',
+  currencyPrefix: lang === 'en',
+  warnMin: t.simulator.amountWarningMin,
+  warnMax: t.simulator.amountWarningMax,
+  warnStep: t.simulator.amountWarningStep,
+}}>
+  window.__simConfig = { dates, nominal, maxAmount, minAmount, grossRate, locale, currencyPrefix, warnMin, warnMax, warnStep };
+</script>
+<script>
+  import { initSimulator } from '../scripts/simulator';
+  initSimulator();
+</script>
