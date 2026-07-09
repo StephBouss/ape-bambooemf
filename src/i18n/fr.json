@@ -140,7 +140,7 @@
     "title": "Flux annuels",
     "legendInterets": "Intérêts seuls",
     "legendInteretsCapital": "Intérêts + Capital",
-    "legendRemboursement": "Remboursement total"
+    "legendRemboursement": "Remboursement total + intérêts"
   },
   "syndicate": {
     "eyebrow": "Syndicat de placement",

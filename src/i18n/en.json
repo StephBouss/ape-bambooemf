@@ -140,7 +140,7 @@
     "title": "Annual cash flows",
     "legendInterets": "Interest only",
     "legendInteretsCapital": "Interest + Capital",
-    "legendRemboursement": "Full repayment"
+    "legendRemboursement": "Full repayment + interest"
   },
   "syndicate": {
     "eyebrow": "Placement Syndicate",
