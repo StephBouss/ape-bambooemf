@@ -186,10 +186,9 @@ export type FluxYear = {
  * détail contractuel (différé 1 an, puis capital + intérêts chaque semestre).
  */
 export const fluxAnnuels: FluxYear[] = [
-  { year: 2026, kind: 'interets', label: 'Intérêts seuls' },
   { year: 2027, kind: 'interets', label: 'Intérêts seuls' },
   { year: 2028, kind: 'interets-capital', label: 'Intérêts + Capital' },
-  { year: 2029, kind: 'remboursement', label: 'Remboursement total' },
+  { year: 2029, kind: 'remboursement', label: 'Remboursement total + intérêts' },
 ];
 
 export type DocumentItem = {
