@@ -112,7 +112,13 @@ export function initSimulator() {
   const modalForm = document.getElementById('sim-modal-form') as HTMLFormElement | null;
   const modalNom = document.getElementById('sim-modal-nom') as HTMLInputElement | null;
   const modalPrenom = document.getElementById('sim-modal-prenom') as HTMLInputElement | null;
-  const modalPays = document.getElementById('sim-modal-pays') as HTMLInputElement | null;
+  const paysTrigger = document.getElementById('sim-modal-pays-trigger') as HTMLButtonElement | null;
+  const paysFlag = document.getElementById('sim-modal-pays-flag');
+  const paysCurrent = document.getElementById('sim-modal-pays-current');
+  const paysPanel = document.getElementById('sim-modal-pays-panel');
+  const paysFilter = document.getElementById('sim-modal-pays-filter') as HTMLInputElement | null;
+  const paysList = document.getElementById('sim-modal-pays-list');
+  const paysError = document.getElementById('sim-modal-pays-error');
   const modalPhone = document.getElementById('sim-modal-phone') as HTMLInputElement | null;
   const modalEmail = document.getElementById('sim-modal-email') as HTMLInputElement | null;
   const modalAmount = document.getElementById('sim-modal-amount') as HTMLInputElement | null;
@@ -211,6 +217,7 @@ export function initSimulator() {
     if (modalAmount) modalAmount.value = amountEl!.value;
     modalOverlay?.classList.remove('hidden');
     modalOverlay?.classList.add('flex');
+    closePaysPanel();
     modalNom?.focus();
   }
 
@@ -219,13 +226,79 @@ export function initSimulator() {
     modalOverlay?.classList.remove('flex');
   }
 
+  let selectedCountryName = '';
+
+  function openPaysPanel() {
+    paysPanel?.classList.remove('hidden');
+    paysPanel?.classList.add('flex');
+    paysTrigger?.setAttribute('aria-expanded', 'true');
+    if (paysFilter) {
+      paysFilter.value = '';
+      filterCountries('');
+      paysFilter.focus();
+    }
+  }
+
+  function closePaysPanel() {
+    paysPanel?.classList.add('hidden');
+    paysPanel?.classList.remove('flex');
+    paysTrigger?.setAttribute('aria-expanded', 'false');
+  }
+
+  function filterCountries(query: string) {
+    const q = query.trim().toLowerCase();
+    paysList?.querySelectorAll<HTMLButtonElement>('.sim-country-option').forEach((row) => {
+      const name = row.dataset.name?.toLowerCase() ?? '';
+      row.classList.toggle('hidden', q.length > 0 && !name.includes(q));
+    });
+  }
+
+  paysTrigger?.addEventListener('click', () => {
+    const isOpen = paysPanel?.classList.contains('flex');
+    if (isOpen) closePaysPanel();
+    else openPaysPanel();
+  });
+
+  paysFilter?.addEventListener('input', () => filterCountries(paysFilter.value));
+
+  paysList?.querySelectorAll<HTMLButtonElement>('.sim-country-option').forEach((row) => {
+    row.addEventListener('click', () => {
+      selectedCountryName = row.dataset.name ?? '';
+      if (paysCurrent) {
+        paysCurrent.textContent = selectedCountryName;
+        paysCurrent.classList.remove('text-muted');
+      }
+      const svg = row.querySelector('svg');
+      if (paysFlag && svg) paysFlag.innerHTML = svg.outerHTML;
+      paysError?.classList.add('hidden');
+      closePaysPanel();
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (
+      paysPanel &&
+      !paysPanel.classList.contains('hidden') &&
+      !paysPanel.contains(e.target as Node) &&
+      e.target !== paysTrigger &&
+      !paysTrigger?.contains(e.target as Node)
+    ) {
+      closePaysPanel();
+    }
+  });
+
   ctaEl?.addEventListener('click', openModal);
   modalCancel?.addEventListener('click', closeModal);
   modalOverlay?.addEventListener('click', (e) => {
     if (e.target === modalOverlay) closeModal();
   });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !modalOverlay?.classList.contains('hidden')) closeModal();
+    if (e.key !== 'Escape') return;
+    if (paysPanel && !paysPanel.classList.contains('hidden')) {
+      closePaysPanel();
+    } else if (!modalOverlay?.classList.contains('hidden')) {
+      closeModal();
+    }
   });
 
   modalAmount?.addEventListener('input', () => {
@@ -274,7 +347,9 @@ export function initSimulator() {
     } else {
       modalAmount!.setCustomValidity('');
     }
-    if (!modalForm.reportValidity()) return;
+    const paysValid = selectedCountryName.length > 0;
+    paysError?.classList.toggle('hidden', paysValid);
+    if (!modalForm.reportValidity() || !paysValid) return;
 
     const residence = residenceEl!.value;
     const { count, maturityCapital } = computeResults(amount, residence, cfg!);
@@ -282,7 +357,7 @@ export function initSimulator() {
     const body = cfg!.ctaBodyTemplate
       .replace('{nom}', modalNom!.value.trim())
       .replace('{prenom}', modalPrenom!.value.trim())
-      .replace('{pays}', modalPays!.value.trim())
+      .replace('{pays}', selectedCountryName)
       .replace('{telephone}', modalPhone!.value.trim())
       .replace('{email}', modalEmail!.value.trim())
       .replace('{amount}', formatAmount(amount, cfg!))

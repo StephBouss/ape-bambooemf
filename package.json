@@ -15,6 +15,7 @@
     "@astrojs/tailwind": "^5.1.4",
     "@fontsource/inter": "^5.1.0",
     "@fontsource/poppins": "^5.1.0",
+    "@iconify-json/circle-flags": "^1.2.10",
     "@iconify-json/tabler": "^1.2.10",
     "astro": "^4.16.13",
     "astro-icon": "^1.1.5",
