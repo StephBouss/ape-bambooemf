@@ -13,6 +13,7 @@ interface SimConfig {
   ctaSubject: string;
   ctaBodyTemplate: string;
   residenceLabels: Record<string, string>;
+  modalAmountInvalid: string;
 }
 
 declare global {
@@ -40,6 +41,19 @@ function computeSchedule(principal: number, netSemesterRate: number): ScheduleRo
     rows.push({ start, interest: start * netSemesterRate, repaid: start - end, end });
   }
   return rows;
+}
+
+function computeResults(amount: number, residence: string, cfg: SimConfig) {
+  const isCemac = residence === 'cemac';
+  const taxRate = isCemac ? 0.1 : 0;
+  const netAnnual = (cfg.grossRate / 100) * (1 - taxRate);
+  const netSemesterRate = netAnnual / 2;
+  const count = Math.round(amount / cfg.nominal);
+  const rows = computeSchedule(amount, netSemesterRate);
+  const totalInterest = rows.reduce((s, r) => s + r.interest, 0);
+  const totalRepaid = rows.reduce((s, r) => s + r.repaid, 0);
+  const maturityCapital = amount + totalInterest;
+  return { taxRate, netAnnual, count, rows, totalInterest, totalRepaid, maturityCapital };
 }
 
 /** Séparateur de milliers forcé par locale : Intl.NumberFormat('fr-FR') utilise par défaut
@@ -89,7 +103,15 @@ export function initSimulator() {
   const noteEl = document.getElementById('sim-residence-note');
   const warningEl = document.getElementById('sim-amount-warning');
   const scheduleBody = document.getElementById('sim-schedule-body');
-  const ctaEl = document.getElementById('sim-cta') as HTMLAnchorElement | null;
+  const ctaEl = document.getElementById('sim-cta') as HTMLButtonElement | null;
+  const modalOverlay = document.getElementById('sim-modal-overlay');
+  const modalForm = document.getElementById('sim-modal-form') as HTMLFormElement | null;
+  const modalNom = document.getElementById('sim-modal-nom') as HTMLInputElement | null;
+  const modalPrenom = document.getElementById('sim-modal-prenom') as HTMLInputElement | null;
+  const modalPays = document.getElementById('sim-modal-pays') as HTMLInputElement | null;
+  const modalPhone = document.getElementById('sim-modal-phone') as HTMLInputElement | null;
+  const modalAmount = document.getElementById('sim-modal-amount') as HTMLInputElement | null;
+  const modalCancel = document.getElementById('sim-modal-cancel');
   if (!cfg || !residenceEl || !amountEl || !scheduleBody) return;
 
   function buildRow(date: string, start: number | null, interest: number | null, repaid: number | null, end: number, isIssuance: boolean) {
@@ -121,17 +143,8 @@ export function initSimulator() {
     const isCemac = residence === 'cemac';
     noteEl?.classList.toggle('hidden', isCemac);
 
-    const taxRate = isCemac ? 0.1 : 0;
-    const grossAnnual = cfg!.grossRate / 100;
-    const netAnnual = grossAnnual * (1 - taxRate);
-    const netSemesterRate = netAnnual / 2;
-
-    const count = Math.round(amount / cfg!.nominal);
-    const rows = computeSchedule(amount, netSemesterRate);
-    const totalInterest = rows.reduce((s, r) => s + r.interest, 0);
-    const totalRepaid = rows.reduce((s, r) => s + r.repaid, 0);
+    const { taxRate, netAnnual, count, rows, totalInterest, totalRepaid, maturityCapital } = computeResults(amount, residence, cfg!);
     const totalReceived = totalInterest + totalRepaid;
-    const maturityCapital = amount + totalInterest;
 
     setText('nominal', formatAmount(cfg!.nominal, cfg!));
     setText('count', groupNumber(count, cfg!.locale));
@@ -149,16 +162,6 @@ export function initSimulator() {
     rows.forEach((r, idx) => {
       scheduleBody!.appendChild(buildRow(cfg!.dates[idx + 1], r.start, r.interest, r.repaid, r.end, false));
     });
-
-    if (ctaEl) {
-      const body = cfg!.ctaBodyTemplate
-        .replace('{amount}', formatAmount(amount, cfg!))
-        .replace('{residence}', cfg!.residenceLabels[residence] ?? residence)
-        .replace('{count}', groupNumber(count, cfg!.locale))
-        .replace('{maturity}', formatAmount(maturityCapital, cfg!));
-      const params = new URLSearchParams({ subject: cfg!.ctaSubject, body });
-      ctaEl.href = `mailto:${cfg!.ctaEmail}?${params.toString().replace(/\+/g, '%20')}`;
-    }
   }
 
   function validateAndSnap() {
@@ -193,6 +196,64 @@ export function initSimulator() {
   });
   amountEl.addEventListener('change', validateAndSnap);
   residenceEl.addEventListener('change', () => render());
+
+  function openModal() {
+    if (modalAmount) modalAmount.value = amountEl!.value;
+    modalOverlay?.classList.remove('hidden');
+    modalOverlay?.classList.add('flex');
+    modalNom?.focus();
+  }
+
+  function closeModal() {
+    modalOverlay?.classList.add('hidden');
+    modalOverlay?.classList.remove('flex');
+  }
+
+  ctaEl?.addEventListener('click', openModal);
+  modalCancel?.addEventListener('click', closeModal);
+  modalOverlay?.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modalOverlay?.classList.contains('hidden')) closeModal();
+  });
+
+  modalAmount?.addEventListener('input', () => {
+    modalAmount.setCustomValidity('');
+    const caretFromEnd = modalAmount.value.length - (modalAmount.selectionStart ?? modalAmount.value.length);
+    const value = parseAmount(modalAmount.value);
+    const formatted = formatGrouped(value, cfg!.locale);
+    modalAmount.value = formatted;
+    const pos = Math.max(formatted.length - caretFromEnd, 0);
+    modalAmount.setSelectionRange(pos, pos);
+  });
+
+  modalForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const amount = parseAmount(modalAmount!.value);
+    if (amount < cfg!.minAmount || amount > cfg!.maxAmount) {
+      modalAmount!.setCustomValidity(cfg!.modalAmountInvalid);
+    } else {
+      modalAmount!.setCustomValidity('');
+    }
+    if (!modalForm.reportValidity()) return;
+
+    const residence = residenceEl!.value;
+    const { count, maturityCapital } = computeResults(amount, residence, cfg!);
+
+    const body = cfg!.ctaBodyTemplate
+      .replace('{nom}', modalNom!.value.trim())
+      .replace('{prenom}', modalPrenom!.value.trim())
+      .replace('{pays}', modalPays!.value.trim())
+      .replace('{telephone}', modalPhone!.value.trim())
+      .replace('{amount}', formatAmount(amount, cfg!))
+      .replace('{residence}', cfg!.residenceLabels[residence] ?? residence)
+      .replace('{count}', groupNumber(count, cfg!.locale))
+      .replace('{maturity}', formatAmount(maturityCapital, cfg!));
+    const params = new URLSearchParams({ subject: cfg!.ctaSubject, body });
+    window.location.href = `mailto:${cfg!.ctaEmail}?${params.toString().replace(/\+/g, '%20')}`;
+    closeModal();
+  });
 
   render();
 }

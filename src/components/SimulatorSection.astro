@@ -79,15 +79,15 @@ const initialAmountDisplay = (lang === 'fr' ? '1 000 000' : '1,000,000');
           </div>
         </dl>
 
-        <a
+        <button
+          type="button"
           id="sim-cta"
-          href="#"
           class="mt-6 w-full inline-flex items-center justify-center gap-2 bg-vert-marque text-white font-semibold text-sm rounded-full px-6 py-3.5 shadow-soft hover:bg-vert-foret transition-colors group"
         >
           <Icon name="tabler:mail" class="w-4 h-4" />
           {t.simulator.ctaButton}
           <Icon name="tabler:arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
-        </a>
+        </button>
         <p class="text-[11px] text-muted text-center mt-2.5">{t.simulator.ctaNote}</p>
       </div>
     </div>
@@ -123,6 +123,53 @@ const initialAmountDisplay = (lang === 'fr' ? '1 000 000' : '1,000,000');
 
     <p class="reveal-item text-xs text-muted/80 italic border-t border-filet mt-8 pt-6">{t.simulator.disclaimer}</p>
   </div>
+
+  <div
+    id="sim-modal-overlay"
+    class="hidden fixed inset-0 z-50 items-center justify-center bg-charbon/60 backdrop-blur-sm px-4"
+  >
+    <div class="bg-white rounded-card shadow-soft w-full max-w-md p-6 md:p-7">
+      <h3 class="font-display font-bold text-xl text-charbon">{t.simulator.modalTitle}</h3>
+      <p class="text-sm text-muted mt-2 mb-5">{t.simulator.modalLead}</p>
+
+      <form id="sim-modal-form" class="space-y-4">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label for="sim-modal-nom" class="block text-xs font-semibold text-navy mb-1.5">{t.simulator.modalFieldNom}</label>
+            <input id="sim-modal-nom" type="text" required autocomplete="family-name" class="w-full bg-menthe-fond border border-filet rounded-lg px-3.5 py-2.5 text-sm" />
+          </div>
+          <div>
+            <label for="sim-modal-prenom" class="block text-xs font-semibold text-navy mb-1.5">{t.simulator.modalFieldPrenom}</label>
+            <input id="sim-modal-prenom" type="text" required autocomplete="given-name" class="w-full bg-menthe-fond border border-filet rounded-lg px-3.5 py-2.5 text-sm" />
+          </div>
+        </div>
+
+        <div>
+          <label for="sim-modal-pays" class="block text-xs font-semibold text-navy mb-1.5">{t.simulator.modalFieldPays}</label>
+          <input id="sim-modal-pays" type="text" required autocomplete="country-name" class="w-full bg-menthe-fond border border-filet rounded-lg px-3.5 py-2.5 text-sm" />
+        </div>
+
+        <div>
+          <label for="sim-modal-phone" class="block text-xs font-semibold text-navy mb-1.5">{t.simulator.modalFieldPhone}</label>
+          <input id="sim-modal-phone" type="tel" required autocomplete="tel" class="w-full bg-menthe-fond border border-filet rounded-lg px-3.5 py-2.5 text-sm" />
+        </div>
+
+        <div>
+          <label for="sim-modal-amount" class="block text-xs font-semibold text-navy mb-1.5">{t.simulator.modalFieldAmount}</label>
+          <input id="sim-modal-amount" type="text" inputmode="numeric" autocomplete="off" required class="w-full bg-menthe-fond border border-filet rounded-lg px-3.5 py-2.5 text-sm font-semibold tabular" />
+        </div>
+
+        <div class="flex gap-3 pt-2">
+          <button type="button" id="sim-modal-cancel" class="flex-1 inline-flex items-center justify-center border border-filet text-charbon font-semibold text-sm rounded-full px-6 py-3 hover:border-charbon/40 transition-colors">
+            {t.simulator.modalCancel}
+          </button>
+          <button type="submit" class="flex-1 inline-flex items-center justify-center bg-vert-marque text-white font-semibold text-sm rounded-full px-6 py-3 shadow-soft hover:bg-vert-foret transition-colors">
+            {t.simulator.modalConfirm}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </section>
 
 <script define:vars={{
@@ -140,10 +187,12 @@ const initialAmountDisplay = (lang === 'fr' ? '1 000 000' : '1,000,000');
   ctaSubject: t.simulator.ctaEmailSubject,
   ctaBodyTemplate: t.simulator.ctaEmailBody,
   residenceLabels: { cemac: t.simulator.residenceCemac, 'hors-cemac': t.simulator.residenceHorsCemac },
+  modalAmountInvalid: t.simulator.modalAmountInvalid,
 }}>
   window.__simConfig = {
     dates, nominal, maxAmount, minAmount, grossRate, locale, currencyPrefix,
     warnMin, warnMax, warnStep, ctaEmail, ctaSubject, ctaBodyTemplate, residenceLabels,
+    modalAmountInvalid,
   };
 </script>
 <script>
