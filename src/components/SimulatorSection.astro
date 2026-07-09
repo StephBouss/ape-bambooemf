@@ -1,7 +1,8 @@
 ---
+import { Icon } from 'astro-icon/components';
 import type { Lang } from '../i18n/utils';
 import { useTranslations } from '../i18n/utils';
-import { operation } from '../data/operation';
+import { operation, issuer } from '../data/operation';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -75,6 +76,17 @@ const t = useTranslations(lang);
             <dd class="font-display font-bold text-xl text-navy mt-0.5 tabular" data-sim="maturityCapital">—</dd>
           </div>
         </dl>
+
+        <a
+          id="sim-cta"
+          href="#"
+          class="mt-6 w-full inline-flex items-center justify-center gap-2 bg-vert-marque text-white font-semibold text-sm rounded-full px-6 py-3.5 shadow-soft hover:bg-vert-foret transition-colors group"
+        >
+          <Icon name="tabler:mail" class="w-4 h-4" />
+          {t.simulator.ctaButton}
+          <Icon name="tabler:arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
+        </a>
+        <p class="text-[11px] text-muted text-center mt-2.5">{t.simulator.ctaNote}</p>
       </div>
     </div>
 
@@ -122,8 +134,15 @@ const t = useTranslations(lang);
   warnMin: t.simulator.amountWarningMin,
   warnMax: t.simulator.amountWarningMax,
   warnStep: t.simulator.amountWarningStep,
+  ctaEmail: issuer.email,
+  ctaSubject: t.simulator.ctaEmailSubject,
+  ctaBodyTemplate: t.simulator.ctaEmailBody,
+  residenceLabels: { cemac: t.simulator.residenceCemac, 'hors-cemac': t.simulator.residenceHorsCemac },
 }}>
-  window.__simConfig = { dates, nominal, maxAmount, minAmount, grossRate, locale, currencyPrefix, warnMin, warnMax, warnStep };
+  window.__simConfig = {
+    dates, nominal, maxAmount, minAmount, grossRate, locale, currencyPrefix,
+    warnMin, warnMax, warnStep, ctaEmail, ctaSubject, ctaBodyTemplate, residenceLabels,
+  };
 </script>
 <script>
   import { initSimulator } from '../scripts/simulator';

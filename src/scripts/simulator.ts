@@ -9,6 +9,10 @@ interface SimConfig {
   warnMin: string;
   warnMax: string;
   warnStep: string;
+  ctaEmail: string;
+  ctaSubject: string;
+  ctaBodyTemplate: string;
+  residenceLabels: Record<string, string>;
 }
 
 declare global {
@@ -61,6 +65,7 @@ export function initSimulator() {
   const noteEl = document.getElementById('sim-residence-note');
   const warningEl = document.getElementById('sim-amount-warning');
   const scheduleBody = document.getElementById('sim-schedule-body');
+  const ctaEl = document.getElementById('sim-cta') as HTMLAnchorElement | null;
   if (!cfg || !residenceEl || !amountEl || !scheduleBody) return;
 
   function buildRow(date: string, start: number | null, interest: number | null, repaid: number | null, end: number, isIssuance: boolean) {
@@ -120,6 +125,16 @@ export function initSimulator() {
     rows.forEach((r, idx) => {
       scheduleBody!.appendChild(buildRow(cfg!.dates[idx + 1], r.start, r.interest, r.repaid, r.end, false));
     });
+
+    if (ctaEl) {
+      const body = cfg!.ctaBodyTemplate
+        .replace('{amount}', formatAmount(amount, cfg!))
+        .replace('{residence}', cfg!.residenceLabels[residence] ?? residence)
+        .replace('{count}', new Intl.NumberFormat(cfg!.locale).format(count))
+        .replace('{maturity}', formatAmount(maturityCapital, cfg!));
+      const params = new URLSearchParams({ subject: cfg!.ctaSubject, body });
+      ctaEl.href = `mailto:${cfg!.ctaEmail}?${params.toString().replace(/\+/g, '%20')}`;
+    }
   }
 
   function validateAndSnap() {
