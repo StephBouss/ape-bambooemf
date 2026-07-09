@@ -26,7 +26,7 @@ const initialAmountDisplay = (lang === 'fr' ? '1 000 000' : '1,000,000');
           <label for="sim-residence" class="block text-xs font-semibold text-navy mb-2">{t.simulator.residenceLabel}</label>
           <select id="sim-residence" class="w-full bg-white border border-filet rounded-lg px-3.5 py-2.5 text-sm font-medium">
             <option value="hors-cemac">{t.simulator.residenceHorsCemac}</option>
-            <option value="cemac">{t.simulator.residenceCemac}</option>
+            <option value="cemac" selected>{t.simulator.residenceCemac}</option>
           </select>
           <p id="sim-residence-note" class="hidden text-xs text-muted mt-2">{t.simulator.residenceNote}</p>
         </div>
