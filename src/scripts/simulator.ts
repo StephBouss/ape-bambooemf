@@ -145,7 +145,7 @@ export function initSimulator() {
     setText('totalReceivedRow', formatAmount(totalReceived, cfg!));
 
     scheduleBody!.innerHTML = '';
-    scheduleBody!.appendChild(buildRow(cfg!.dates[0], null, null, null, amount, true));
+    scheduleBody!.appendChild(buildRow(cfg!.dates[0], amount, null, null, amount, true));
     rows.forEach((r, idx) => {
       scheduleBody!.appendChild(buildRow(cfg!.dates[idx + 1], r.start, r.interest, r.repaid, r.end, false));
     });
