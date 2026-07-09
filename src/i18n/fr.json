@@ -90,7 +90,7 @@
       { "k": "Arrangeur & Chef de file", "v": "Africa Bright Securities" }
     ],
     "unconfirmed": "voir le Document d'Information",
-    "objetTitle": "Objet des fonds",
+    "objetTitle": "Objet de l'opération",
     "objetText": "Financement des crédits octroyés à la clientèle : fonctionnaires, salariés du privé et commerçants.",
     "privilegeTitle": "Privilège des obligataires",
     "privilegeText": "Sûretés de premier rang au profit de la masse des obligataires.",
@@ -156,7 +156,7 @@
   },
   "documents": {
     "eyebrow": "Documents",
-    "title": "Documentation officielle",
+    "title": "Document à télécharger",
     "lead": "Téléchargement en un clic, sans inscription.",
     "download": "Télécharger",
     "soon": "Bientôt disponible"

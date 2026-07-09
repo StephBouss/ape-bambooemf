@@ -201,7 +201,7 @@ export type DocumentItem = {
 export const documents: DocumentItem[] = [
   {
     id: 'note-information',
-    title: "Note d'information",
+    title: "Document d'information",
     subtitle: "Prospectus complet de l'émission",
     href: null,
   },
@@ -213,7 +213,7 @@ export const documents: DocumentItem[] = [
   },
   {
     id: 'resume-executif',
-    title: 'Résumé exécutif',
+    title: "Résumé du document d'information",
     subtitle: 'Synthèse des caractéristiques clés',
     href: null,
   },
