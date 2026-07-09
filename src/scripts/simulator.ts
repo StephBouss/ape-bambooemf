@@ -42,14 +42,38 @@ function computeSchedule(principal: number, netSemesterRate: number): ScheduleRo
   return rows;
 }
 
+/** Séparateur de milliers forcé par locale : Intl.NumberFormat('fr-FR') utilise par défaut
+ *  l'espace fine insécable U+202F, que beaucoup de polices rendent quasi invisible à l'écran
+ *  (les grands nombres semblent alors non groupés). On force une espace insécable normale
+ *  U+00A0, bien visible — même technique que le mini-listing du Hero. */
+const GROUP_SEPARATOR: Record<string, string> = { 'fr-FR': ' ', 'en-US': ',' };
+
+function groupNumber(n: number, locale: string): string {
+  const sep = GROUP_SEPARATOR[locale] ?? ',';
+  const rounded = Math.round(n);
+  const grouped = Math.abs(rounded).toString().replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+  return rounded < 0 ? `-${grouped}` : grouped;
+}
+
 function formatAmount(n: number, cfg: SimConfig): string {
-  const num = new Intl.NumberFormat(cfg.locale).format(Math.round(n));
+  const num = groupNumber(n, cfg.locale);
   return cfg.currencyPrefix ? `FCFA ${num}` : `${num} FCFA`;
 }
 
 function formatRate(pct: number, locale: string): string {
   const s = pct.toLocaleString(locale, { minimumFractionDigits: 0, maximumFractionDigits: 3 });
   return `${s}%`;
+}
+
+/** Retire tout sauf les chiffres, pour lire un champ saisi avec séparateurs de milliers
+ *  (espace en fr-FR, virgule en en-US) — parseFloat() s'arrêterait au premier séparateur. */
+function parseAmount(raw: string): number {
+  const digits = raw.replace(/\D/g, '');
+  return digits ? parseInt(digits, 10) : 0;
+}
+
+function formatGrouped(n: number, locale: string): string {
+  return n ? groupNumber(n, locale) : '';
 }
 
 function setText(key: string, value: string) {
@@ -90,7 +114,7 @@ export function initSimulator() {
   }
 
   function render(amountOverride?: number) {
-    const raw = amountOverride ?? parseFloat(amountEl!.value);
+    const raw = amountOverride ?? parseAmount(amountEl!.value);
     const amount = Number.isFinite(raw) ? Math.min(Math.max(raw, 0), cfg!.maxAmount) : 0;
 
     const residence = residenceEl!.value;
@@ -110,7 +134,7 @@ export function initSimulator() {
     const maturityCapital = amount + totalInterest;
 
     setText('nominal', formatAmount(cfg!.nominal, cfg!));
-    setText('count', new Intl.NumberFormat(cfg!.locale).format(count));
+    setText('count', groupNumber(count, cfg!.locale));
     setText('grossRate', formatRate(cfg!.grossRate, cfg!.locale));
     setText('tax', formatRate(taxRate * 100, cfg!.locale));
     setText('netRate', formatRate(netAnnual * 100, cfg!.locale));
@@ -130,7 +154,7 @@ export function initSimulator() {
       const body = cfg!.ctaBodyTemplate
         .replace('{amount}', formatAmount(amount, cfg!))
         .replace('{residence}', cfg!.residenceLabels[residence] ?? residence)
-        .replace('{count}', new Intl.NumberFormat(cfg!.locale).format(count))
+        .replace('{count}', groupNumber(count, cfg!.locale))
         .replace('{maturity}', formatAmount(maturityCapital, cfg!));
       const params = new URLSearchParams({ subject: cfg!.ctaSubject, body });
       ctaEl.href = `mailto:${cfg!.ctaEmail}?${params.toString().replace(/\+/g, '%20')}`;
@@ -138,9 +162,8 @@ export function initSimulator() {
   }
 
   function validateAndSnap() {
-    let value = parseFloat(amountEl.value);
+    let value = parseAmount(amountEl.value);
     let warning = '';
-    if (!Number.isFinite(value)) value = cfg!.minAmount;
     if (value > cfg!.maxAmount) {
       value = cfg!.maxAmount;
       warning = cfg!.warnMax;
@@ -151,7 +174,7 @@ export function initSimulator() {
       value = Math.round(value / 1000) * 1000;
       warning = cfg!.warnStep;
     }
-    amountEl!.value = String(value);
+    amountEl!.value = formatGrouped(value, cfg!.locale);
     if (warningEl) {
       warningEl.textContent = warning;
       warningEl.classList.toggle('hidden', !warning);
@@ -159,7 +182,15 @@ export function initSimulator() {
     render(value);
   }
 
-  amountEl.addEventListener('input', () => render());
+  amountEl.addEventListener('input', () => {
+    const caretFromEnd = amountEl!.value.length - (amountEl!.selectionStart ?? amountEl!.value.length);
+    const amount = parseAmount(amountEl!.value);
+    const formatted = formatGrouped(amount, cfg!.locale);
+    amountEl!.value = formatted;
+    const pos = Math.max(formatted.length - caretFromEnd, 0);
+    amountEl!.setSelectionRange(pos, pos);
+    render(amount);
+  });
   amountEl.addEventListener('change', validateAndSnap);
   residenceEl.addEventListener('change', () => render());
 
