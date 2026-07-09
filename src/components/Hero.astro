@@ -10,10 +10,7 @@ const t = useTranslations(lang);
 <section id="accueil" class="relative overflow-hidden pt-36 pb-16 bg-hero-gradient min-h-[640px] flex items-center">
   <div class="absolute inset-0 bg-hero-halo pointer-events-none"></div>
 
-  <!-- Photo officielle : groupe + bâtiment + dégradé + feuilles déjà composés dans le fichier.
-       Masquée sous xl : entre md et lg, la colonne de texte (max-w-lg) occupe une trop
-       grande part de la largeur et un visage se retrouve sous la citation, illisible.
-       Le dégradé de marque (bg-hero-gradient) sert alors seul de fond, avec un contraste garanti. -->
+  <!-- Photo officielle desktop : groupe + bâtiment + dégradé + feuilles déjà composés dans le fichier. -->
   <img
     src="/img/hero-photo.jpg"
     alt=""
@@ -22,10 +19,28 @@ const t = useTranslations(lang);
     onerror="this.style.display='none'"
   />
 
-  <!-- Scrim : garantit le contraste AA du texte sur la photo (§7 Accessibilité) -->
+  <!-- Photo dédiée tablette (768–1279px) : même principe que la version desktop, recadrage
+       propre à ce fichier pour garder le groupe visible sans passer sous le bloc de texte. -->
+  <img
+    src="/img/hero-photo-tablet.jpg"
+    alt=""
+    aria-hidden="true"
+    class="hidden md:block xl:hidden absolute inset-0 w-full h-full object-cover object-[68%_center]"
+    onerror="this.style.display='none'"
+  />
+
+  <!-- Scrim desktop : garantit le contraste AA du texte sur la photo (§7 Accessibilité) -->
   <div
     class="hidden xl:block absolute inset-0 pointer-events-none"
     style="background: radial-gradient(120% 100% at 0% 15%, var(--menthe-fond) 0%, color-mix(in srgb, var(--menthe-fond) 75%, transparent) 32%, transparent 62%);"
+  ></div>
+
+  <!-- Scrim tablette : colonne de texte pleine largeur sur ce format, il faut donc une
+       couverture solide sur toute la hauteur côté texte, avec un dégradé vers la droite
+       pour laisser deviner le groupe/bâtiment sur le bord. -->
+  <div
+    class="hidden md:block xl:hidden absolute inset-0 pointer-events-none"
+    style="background: linear-gradient(100deg, var(--menthe-fond) 0%, var(--menthe-fond) 58%, color-mix(in srgb, var(--menthe-fond) 90%, transparent) 70%, color-mix(in srgb, var(--menthe-fond) 45%, transparent) 82%, transparent 100%);"
   ></div>
 
   <!-- feuilles flottantes additionnelles, côté texte -->
