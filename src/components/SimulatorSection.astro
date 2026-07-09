@@ -155,6 +155,11 @@ const initialAmountDisplay = (lang === 'fr' ? '1 000 000' : '1,000,000');
         </div>
 
         <div>
+          <label for="sim-modal-email" class="block text-xs font-semibold text-navy mb-1.5">{t.simulator.modalFieldEmail}</label>
+          <input id="sim-modal-email" type="email" required autocomplete="email" class="w-full bg-menthe-fond border border-filet rounded-lg px-3.5 py-2.5 text-sm" />
+        </div>
+
+        <div>
           <label for="sim-modal-amount" class="block text-xs font-semibold text-navy mb-1.5">{t.simulator.modalFieldAmount}</label>
           <input id="sim-modal-amount" type="text" inputmode="numeric" autocomplete="off" required class="w-full bg-menthe-fond border border-filet rounded-lg px-3.5 py-2.5 text-sm font-semibold tabular" />
         </div>
@@ -168,6 +173,22 @@ const initialAmountDisplay = (lang === 'fr' ? '1 000 000' : '1,000,000');
           </button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <div
+    id="sim-feedback-overlay"
+    class="hidden fixed inset-0 z-[60] items-center justify-center bg-charbon/60 backdrop-blur-sm px-4"
+  >
+    <div class="bg-white rounded-card shadow-soft w-full max-w-sm p-7 text-center">
+      <div id="sim-feedback-icon-success" class="hidden mx-auto w-14 h-14 rounded-full bg-vert-marque/15 text-vert-foret items-center justify-center mb-4">
+        <Icon name="tabler:circle-check-filled" class="w-9 h-9" />
+      </div>
+      <div id="sim-feedback-icon-error" class="hidden mx-auto w-14 h-14 rounded-full bg-red-100 text-red-600 items-center justify-center mb-4">
+        <Icon name="tabler:circle-x-filled" class="w-9 h-9" />
+      </div>
+      <h3 id="sim-feedback-title" class="font-display font-bold text-lg text-charbon"></h3>
+      <p id="sim-feedback-text" class="text-sm text-muted mt-2"></p>
     </div>
   </div>
 </section>
@@ -188,11 +209,15 @@ const initialAmountDisplay = (lang === 'fr' ? '1 000 000' : '1,000,000');
   ctaBodyTemplate: t.simulator.ctaEmailBody,
   residenceLabels: { cemac: t.simulator.residenceCemac, 'hors-cemac': t.simulator.residenceHorsCemac },
   modalAmountInvalid: t.simulator.modalAmountInvalid,
+  modalSuccessTitle: t.simulator.modalSuccessTitle,
+  modalSuccessText: t.simulator.modalSuccessText,
+  modalErrorTitle: t.simulator.modalErrorTitle,
+  modalErrorText: t.simulator.modalErrorText,
 }}>
   window.__simConfig = {
     dates, nominal, maxAmount, minAmount, grossRate, locale, currencyPrefix,
     warnMin, warnMax, warnStep, ctaEmail, ctaSubject, ctaBodyTemplate, residenceLabels,
-    modalAmountInvalid,
+    modalAmountInvalid, modalSuccessTitle, modalSuccessText, modalErrorTitle, modalErrorText,
   };
 </script>
 <script>

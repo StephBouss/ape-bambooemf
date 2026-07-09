@@ -14,6 +14,10 @@ interface SimConfig {
   ctaBodyTemplate: string;
   residenceLabels: Record<string, string>;
   modalAmountInvalid: string;
+  modalSuccessTitle: string;
+  modalSuccessText: string;
+  modalErrorTitle: string;
+  modalErrorText: string;
 }
 
 declare global {
@@ -110,8 +114,14 @@ export function initSimulator() {
   const modalPrenom = document.getElementById('sim-modal-prenom') as HTMLInputElement | null;
   const modalPays = document.getElementById('sim-modal-pays') as HTMLInputElement | null;
   const modalPhone = document.getElementById('sim-modal-phone') as HTMLInputElement | null;
+  const modalEmail = document.getElementById('sim-modal-email') as HTMLInputElement | null;
   const modalAmount = document.getElementById('sim-modal-amount') as HTMLInputElement | null;
   const modalCancel = document.getElementById('sim-modal-cancel');
+  const feedbackOverlay = document.getElementById('sim-feedback-overlay');
+  const feedbackIconSuccess = document.getElementById('sim-feedback-icon-success');
+  const feedbackIconError = document.getElementById('sim-feedback-icon-error');
+  const feedbackTitle = document.getElementById('sim-feedback-title');
+  const feedbackText = document.getElementById('sim-feedback-text');
   if (!cfg || !residenceEl || !amountEl || !scheduleBody) return;
 
   function buildRow(date: string, start: number | null, interest: number | null, repaid: number | null, end: number, isIssuance: boolean) {
@@ -228,6 +238,34 @@ export function initSimulator() {
     modalAmount.setSelectionRange(pos, pos);
   });
 
+  let feedbackTimer: ReturnType<typeof setTimeout> | null = null;
+
+  function showFeedback(success: boolean) {
+    if (feedbackTimer) clearTimeout(feedbackTimer);
+    if (feedbackTitle) feedbackTitle.textContent = success ? cfg!.modalSuccessTitle : cfg!.modalErrorTitle;
+    if (feedbackText) feedbackText.textContent = success ? cfg!.modalSuccessText : cfg!.modalErrorText;
+    feedbackIconSuccess?.classList.toggle('hidden', !success);
+    feedbackIconSuccess?.classList.toggle('flex', success);
+    feedbackIconError?.classList.toggle('hidden', success);
+    feedbackIconError?.classList.toggle('flex', !success);
+    feedbackOverlay?.classList.remove('hidden');
+    feedbackOverlay?.classList.add('flex');
+    feedbackTimer = setTimeout(hideFeedback, 7000);
+  }
+
+  function hideFeedback() {
+    feedbackOverlay?.classList.add('hidden');
+    feedbackOverlay?.classList.remove('flex');
+    if (feedbackTimer) {
+      clearTimeout(feedbackTimer);
+      feedbackTimer = null;
+    }
+  }
+
+  feedbackOverlay?.addEventListener('click', (e) => {
+    if (e.target === feedbackOverlay) hideFeedback();
+  });
+
   modalForm?.addEventListener('submit', (e) => {
     e.preventDefault();
     const amount = parseAmount(modalAmount!.value);
@@ -246,13 +284,21 @@ export function initSimulator() {
       .replace('{prenom}', modalPrenom!.value.trim())
       .replace('{pays}', modalPays!.value.trim())
       .replace('{telephone}', modalPhone!.value.trim())
+      .replace('{email}', modalEmail!.value.trim())
       .replace('{amount}', formatAmount(amount, cfg!))
       .replace('{residence}', cfg!.residenceLabels[residence] ?? residence)
       .replace('{count}', groupNumber(count, cfg!.locale))
       .replace('{maturity}', formatAmount(maturityCapital, cfg!));
     const params = new URLSearchParams({ subject: cfg!.ctaSubject, body });
-    window.location.href = `mailto:${cfg!.ctaEmail}?${params.toString().replace(/\+/g, '%20')}`;
+    const href = `mailto:${cfg!.ctaEmail}?${params.toString().replace(/\+/g, '%20')}`;
+
     closeModal();
+    try {
+      window.location.href = href;
+      showFeedback(true);
+    } catch {
+      showFeedback(false);
+    }
   });
 
   render();
