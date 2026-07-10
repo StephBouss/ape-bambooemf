@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/Hero.astro';
 import CountdownBar from '../../components/CountdownBar.astro';
 import IssuerSection from '../../components/IssuerSection.astro';
-// import VideoSection from '../../components/VideoSection.astro'; // masquée : la vidéo ne se lançait pas
+import VideoSection from '../../components/VideoSection.astro';
 import SpecTable from '../../components/SpecTable.astro';
 import FluxChart from '../../components/FluxChart.astro';
 import SimulatorSection from '../../components/SimulatorSection.astro';
@@ -18,7 +18,7 @@ const lang = 'en' as const;
   <Hero lang={lang} />
   <CountdownBar lang={lang} />
   <IssuerSection lang={lang} />
-  {/* <VideoSection lang={lang} /> masquée : la vidéo ne se lançait pas */}
+  <VideoSection lang={lang} />
   <SpecTable lang={lang}>
     <FluxChart lang={lang} slot="flux" />
   </SpecTable>
