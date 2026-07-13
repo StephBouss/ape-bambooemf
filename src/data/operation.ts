@@ -122,6 +122,7 @@ export const syndicate: SyndicateCountryGroup[] = [
       {
         name: 'Fedhen Capital',
         address: 'Immeuble Indigo, Bonapriso, 5ème étage, Douala',
+        phones: ['+237 2 33 42 99 68'],
         logo: 'fedhen-capital.jpg',
       },
     ],
