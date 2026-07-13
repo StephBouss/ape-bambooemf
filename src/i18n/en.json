@@ -181,7 +181,7 @@
     "rows": [
       {
         "type": "Individual, resident or non-resident in the CEMAC zone",
-        "docs": ["ID card / Passport", "Residence permit"]
+        "docs": ["ID card / Passport / Residence permit"]
       },
       {
         "type": "Legal entity with registered office in or outside the CEMAC zone",

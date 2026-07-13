@@ -181,7 +181,7 @@
     "rows": [
       {
         "type": "Personne physique résidente ou non-résidente en zone CEMAC",
-        "docs": ["Carte d'identité / Passeport", "Carte de séjour"]
+        "docs": ["Carte d'identité / Passeport / Carte de séjour"]
       },
       {
         "type": "Personne morale ayant leur siège social ou non en zone CEMAC",
