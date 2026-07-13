@@ -178,11 +178,10 @@
     "lead": "Pièces à fournir selon votre profil pour souscrire à l'émission.",
     "colType": "Souscripteurs",
     "colDocs": "Pièces requises",
-    "caption": "Tableau 4 : Identification des souscripteurs",
     "rows": [
       {
         "type": "Personne physique résidente ou non-résidente en zone CEMAC",
-        "docs": ["Carte d'identité / Passeport"]
+        "docs": ["Carte d'identité / Passeport", "Carte de séjour"]
       },
       {
         "type": "Personne morale ayant leur siège social ou non en zone CEMAC",

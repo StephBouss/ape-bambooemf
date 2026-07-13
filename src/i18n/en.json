@@ -178,11 +178,10 @@
     "lead": "Documents required depending on your investor profile.",
     "colType": "Subscribers",
     "colDocs": "Required documents",
-    "caption": "Table 4: Subscriber identification",
     "rows": [
       {
         "type": "Individual, resident or non-resident in the CEMAC zone",
-        "docs": ["ID card / Passport"]
+        "docs": ["ID card / Passport", "Residence permit"]
       },
       {
         "type": "Legal entity with registered office in or outside the CEMAC zone",
