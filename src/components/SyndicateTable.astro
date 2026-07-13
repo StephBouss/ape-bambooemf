@@ -73,7 +73,9 @@ function initials(name: string): string {
                 <td class="px-6 py-3.5 align-top text-muted">{group.country}</td>
                 <td class="px-6 py-3.5 align-top text-muted">
                   {m.address}
-                  {m.phone && <div class="tabular mt-0.5"><a href={`tel:${m.phone.replace(/\s/g,'')}`} class="hover:text-vert-foret">{m.phone}</a></div>}
+                  {m.phones?.map((p) => (
+                    <div class="tabular mt-0.5"><a href={`tel:${p.replace(/\s/g,'')}`} class="hover:text-vert-foret">{p}</a></div>
+                  ))}
                   {m.website && <div class="mt-0.5"><a href={`https://${m.website}`} class="hover:text-vert-foret">{m.website}</a></div>}
                 </td>
               </tr>

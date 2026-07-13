@@ -72,7 +72,7 @@ export type SyndicateMember = {
   name: string;
   role?: 'chef-de-file' | 'membre';
   address: string;
-  phone?: string;
+  phones?: string[];
   website?: string;
   logo?: string; // /img/syndicate/<logo> — omis si non fourni (repli sur initiales)
 };
@@ -97,23 +97,26 @@ export const syndicate: SyndicateCountryGroup[] = [
         name: 'Africa Bright Securities',
         role: 'chef-de-file',
         address: arrangerContact.address,
-        phone: arrangerContact.phone,
+        phones: [arrangerContact.phone],
         website: arrangerContact.website,
         logo: 'africa-bright.png',
       },
       {
         name: 'Attijari Securities Central Africa (ASCA)',
         address: 'Rue Njoh Njoh, Carrefour Soppo, Immeuble du Phare 3ème étage, Bonapriso — B.P. 255 Douala',
+        phones: ['+237 233 43 53 08', '+237 678 43 87 19', '+237 233 43 14 46'],
         logo: 'asca.webp',
       },
       {
         name: 'Beko Capital Advisory',
         address: 'Bonanjo, 620 Rue du Gouverneur Carras, Immeuble Grassfields — B.P. 2684 Douala',
+        phones: ['+237 691 44 35 29', '+237 698 77 48 24'],
         logo: 'beko-capital.jpg',
       },
       {
         name: 'Elite Capital Securities Central Africa',
         address: 'Bastos — Yaoundé — B.P. 35303',
+        phones: ['+237 657 50 50 46', '+237 668 37 34 96', '+237 620 28 84 52'],
         logo: 'elite-capital.jpg',
       },
       {
@@ -135,6 +138,7 @@ export const syndicate: SyndicateCountryGroup[] = [
       {
         name: 'BGFI Bourse',
         address: 'Boulevard du Bord de Mer, 3ème étage, Immeuble Odyssée — BP 2253 Libreville',
+        phones: ['+241 077 50 71 10', '+241 011 79 60 08', '+241 074 43 00 51'],
         logo: 'bgfi-bourse.png',
       },
     ],
@@ -146,6 +150,7 @@ export const syndicate: SyndicateCountryGroup[] = [
       {
         name: "L'Archer Securities",
         address: 'Brazzaville, Mpila, 20ème étage bureau 2002, Bloc A, Business Center, Tour Jumelles',
+        phones: ['+242 06 661 68 08', '+242 05 761 68 08', '+242 05 778 79 15'],
         logo: 'larcher-securities.png',
       },
     ],
@@ -157,6 +162,7 @@ export const syndicate: SyndicateCountryGroup[] = [
       {
         name: 'Bange Sociedad De Valores',
         address: 'Avenida De Las Naciones Unidas, N°28 Apdo 430 — Malabo',
+        phones: ['+240 222 62 38 01', '+240 333 09 95 76'],
         logo: 'bange.png',
       },
     ],
@@ -168,6 +174,7 @@ export const syndicate: SyndicateCountryGroup[] = [
       {
         name: 'Commercial Bank Tchad - Bourse (CBT)',
         address: 'BP 19 Ndjaména',
+        phones: ['+235 22 52 28 29'],
         logo: 'cbt-bourse.png',
       },
     ],
@@ -203,25 +210,25 @@ export const documents: DocumentItem[] = [
     id: 'note-information',
     title: "Document d'information",
     subtitle: "Prospectus complet de l'émission",
-    href: null,
-  },
-  {
-    id: 'bulletin-souscription',
-    title: 'Bulletin de souscription',
-    subtitle: 'Formulaire officiel de souscription',
-    href: '/documents/bulletin-souscription.pdf',
+    href: '/documents/EO_Bamboo_document-information.pdf',
   },
   {
     id: 'resume-executif',
     title: "Résumé du document d'information",
     subtitle: 'Synthèse des caractéristiques clés',
-    href: null,
+    href: '/documents/EO_Bamboo_resume-document-information.pdf',
+  },
+  {
+    id: 'bulletin-souscription',
+    title: 'Bulletin de souscription',
+    subtitle: 'Formulaire officiel de souscription',
+    href: '/documents/EO_Bamboo_bulletin-souscription.pdf',
   },
   {
     id: 'depliant-presentation',
     title: 'Dépliant de présentation',
     subtitle: "Aperçu synthétique de l'opération",
-    href: '/documents/depliant-presentation.pdf',
+    href: '/documents/EO_Bamboo_depliant-presentation.pdf',
   },
 ];
 
