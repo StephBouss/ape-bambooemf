@@ -323,7 +323,7 @@ export function initSimulator() {
     feedbackIconError?.classList.toggle('flex', !success);
     feedbackOverlay?.classList.remove('hidden');
     feedbackOverlay?.classList.add('flex');
-    feedbackTimer = setTimeout(hideFeedback, 12000);
+    feedbackTimer = setTimeout(hideFeedback, 15000);
   }
 
   function hideFeedback() {
