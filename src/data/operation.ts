@@ -134,6 +134,7 @@ export const syndicate: SyndicateCountryGroup[] = [
       {
         name: 'Bamboo Securities Central Africa (BAMS)',
         address: 'Boulevard Triomphal Omar Bongo — BP 9687 Libreville',
+        phones: ['+241 77 69 63 64', '+241 60 41 21 21'],
         logo: 'bams.png',
       },
       {
