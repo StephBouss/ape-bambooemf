@@ -1,0 +1,59 @@
+---
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+<section id="souscripteurs" class="py-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-2xl mb-12 reveal-group">
+      <div class="eyebrow reveal-item mb-3">{t.subscribers.eyebrow}</div>
+      <h2 class="reveal-item font-display font-bold text-3xl md:text-4xl text-charbon">{t.subscribers.title}</h2>
+      <p class="reveal-item text-muted mt-3">{t.subscribers.lead}</p>
+    </div>
+
+    <div class="reveal-item sub-table overflow-x-auto rounded-card border border-filet shadow-soft">
+      <table class="w-full text-sm min-w-[640px] border-collapse">
+        <thead>
+          <tr class="bg-vert-foret text-white text-xs uppercase tracking-wide">
+            <th class="text-left font-semibold px-6 py-3.5 w-2/5">{t.subscribers.colType}</th>
+            <th class="text-left font-semibold px-6 py-3.5">{t.subscribers.colDocs}</th>
+          </tr>
+        </thead>
+        <tbody class="table-rows">
+          {t.subscribers.rows.map((row) => (
+            <tr class="border-b border-filet last:border-0 hover:bg-menthe-fond/50 transition-colors">
+              <td class="px-6 py-4 align-top font-semibold text-navy">{row.type}</td>
+              <td class="px-6 py-4 align-top text-encre">
+                <ul class="space-y-1.5">
+                  {row.docs.map((d) => (
+                    <li class="flex items-start gap-2">
+                      <span class="sub-bullet" aria-hidden="true"></span>
+                      <span>{d}</span>
+                    </li>
+                  ))}
+                </ul>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="reveal-item text-xs text-muted mt-4">{t.subscribers.footnote}</p>
+    <p class="reveal-item text-xs text-muted/80 italic mt-1">{t.subscribers.caption}</p>
+  </div>
+</section>
+
+<style>
+  .sub-bullet {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--vert-foret);
+    margin-top: 0.5em;
+    flex-shrink: 0;
+  }
+</style>

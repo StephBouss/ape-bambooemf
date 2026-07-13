@@ -172,6 +172,29 @@
     "chefDeFileTag": "Lead manager",
     "footnote": "Subscriptions may be lodged with any of the approved placement agents above, during the subscription period from 15 July to 12 October 2026."
   },
+  "subscribers": {
+    "eyebrow": "Subscription",
+    "title": "Subscriber identification",
+    "lead": "Documents required depending on your investor profile.",
+    "colType": "Subscribers",
+    "colDocs": "Required documents",
+    "caption": "Table 4: Subscriber identification",
+    "rows": [
+      {
+        "type": "Individual, resident or non-resident in the CEMAC zone",
+        "docs": ["ID card / Passport"]
+      },
+      {
+        "type": "Legal entity with registered office in or outside the CEMAC zone",
+        "docs": ["RCCM registration certificate", "ID card / Passport of the legal representative", "Circuit form"]
+      },
+      {
+        "type": "Collective Investment Undertakings in Transferable Securities (UCITS)",
+        "docs": ["Copy of the UCITS licence", "RCCM registration certificate*", "ID card / Passport of the UCITS legal representative", "Circuit form"]
+      }
+    ],
+    "footnote": "(*) For Open-Ended Investment Companies (SICAV)"
+  },
   "documents": {
     "eyebrow": "Documents",
     "title": "Official documentation",

@@ -172,6 +172,29 @@
     "chefDeFileTag": "Chef de file",
     "footnote": "Les souscriptions peuvent être déposées auprès de l'un des agents placeurs agréés ci-dessus, pendant la période de souscription du 15 juillet au 12 octobre 2026."
   },
+  "subscribers": {
+    "eyebrow": "Souscription",
+    "title": "Identification des souscripteurs",
+    "lead": "Pièces à fournir selon votre profil pour souscrire à l'émission.",
+    "colType": "Souscripteurs",
+    "colDocs": "Pièces requises",
+    "caption": "Tableau 4 : Identification des souscripteurs",
+    "rows": [
+      {
+        "type": "Personne physique résidente ou non-résidente en zone CEMAC",
+        "docs": ["Carte d'identité / Passeport"]
+      },
+      {
+        "type": "Personne morale ayant leur siège social ou non en zone CEMAC",
+        "docs": ["Attestation d'immatriculation au RCCM", "Carte d'identité / Passeport du Représentant légal", "Fiche circuit"]
+      },
+      {
+        "type": "Organismes de Placements Collectifs en Valeurs Mobilières (OPCVM)",
+        "docs": ["Copie de l'agrément OPCVM", "Attestation d'immatriculation au RCCM*", "Carte d'identité / Passeport du Représentant légal de l'OPCVM", "Fiche circuit"]
+      }
+    ],
+    "footnote": "(*) Pour les Sociétés d'Investissement à Capital Variable (SICAV)"
+  },
   "documents": {
     "eyebrow": "Documents",
     "title": "Document à télécharger",
