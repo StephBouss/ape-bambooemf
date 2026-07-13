@@ -9,7 +9,7 @@ interface SimConfig {
   warnMin: string;
   warnMax: string;
   warnStep: string;
-  ctaEmail: string;
+  web3FormsAccessKey: string;
   ctaSubject: string;
   ctaBodyTemplate: string;
   residenceLabels: Record<string, string>;
@@ -339,7 +339,7 @@ export function initSimulator() {
     if (e.target === feedbackOverlay) hideFeedback();
   });
 
-  modalForm?.addEventListener('submit', (e) => {
+  modalForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const amount = parseAmount(modalAmount!.value);
     if (amount < cfg!.minAmount || amount > cfg!.maxAmount) {
@@ -354,25 +354,43 @@ export function initSimulator() {
     const residence = residenceEl!.value;
     const { count, maturityCapital } = computeResults(amount, residence, cfg!);
 
+    const nom = modalNom!.value.trim();
+    const prenom = modalPrenom!.value.trim();
+    const email = modalEmail!.value.trim();
     const body = cfg!.ctaBodyTemplate
-      .replace('{nom}', modalNom!.value.trim())
-      .replace('{prenom}', modalPrenom!.value.trim())
+      .replace('{nom}', nom)
+      .replace('{prenom}', prenom)
       .replace('{pays}', selectedCountryName)
       .replace('{telephone}', modalPhone!.value.trim())
-      .replace('{email}', modalEmail!.value.trim())
+      .replace('{email}', email)
       .replace('{amount}', formatAmount(amount, cfg!))
       .replace('{residence}', cfg!.residenceLabels[residence] ?? residence)
       .replace('{count}', groupNumber(count, cfg!.locale))
       .replace('{maturity}', formatAmount(maturityCapital, cfg!));
-    const params = new URLSearchParams({ subject: cfg!.ctaSubject, body });
-    const href = `mailto:${cfg!.ctaEmail}?${params.toString().replace(/\+/g, '%20')}`;
 
-    closeModal();
+    const submitBtn = modalForm.querySelector<HTMLButtonElement>('button[type="submit"]');
+    if (submitBtn) submitBtn.disabled = true;
+
     try {
-      window.location.href = href;
-      showFeedback(true);
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: cfg!.web3FormsAccessKey,
+          subject: cfg!.ctaSubject,
+          from_name: `${nom} ${prenom}`,
+          email,
+          message: body,
+        }),
+      });
+      const data = await res.json().catch(() => null);
+      closeModal();
+      showFeedback(Boolean(data?.success));
     } catch {
+      closeModal();
       showFeedback(false);
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
     }
   });
 

@@ -2,7 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import type { Lang } from '../i18n/utils';
 import { useTranslations } from '../i18n/utils';
-import { operation, issuer } from '../data/operation';
+import { operation, web3FormsAccessKey } from '../data/operation';
 import { countries } from '../data/countries';
 
 interface Props { lang: Lang }
@@ -245,7 +245,7 @@ const initialAmountDisplay = (lang === 'fr' ? '1 000 000' : '1,000,000');
   warnMin: t.simulator.amountWarningMin,
   warnMax: t.simulator.amountWarningMax,
   warnStep: t.simulator.amountWarningStep,
-  ctaEmail: issuer.email,
+  web3FormsAccessKey,
   ctaSubject: t.simulator.ctaEmailSubject,
   ctaBodyTemplate: t.simulator.ctaEmailBody,
   residenceLabels: { cemac: t.simulator.residenceCemac, 'hors-cemac': t.simulator.residenceHorsCemac },
@@ -257,7 +257,7 @@ const initialAmountDisplay = (lang === 'fr' ? '1 000 000' : '1,000,000');
 }}>
   window.__simConfig = {
     dates, nominal, maxAmount, minAmount, grossRate, locale, currencyPrefix,
-    warnMin, warnMax, warnStep, ctaEmail, ctaSubject, ctaBodyTemplate, residenceLabels,
+    warnMin, warnMax, warnStep, web3FormsAccessKey, ctaSubject, ctaBodyTemplate, residenceLabels,
     modalAmountInvalid, modalSuccessTitle, modalSuccessText, modalErrorTitle, modalErrorText,
   };
 </script>

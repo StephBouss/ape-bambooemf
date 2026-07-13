@@ -57,6 +57,12 @@ export const issuer = {
   ],
 } as const;
 
+/**
+ * Clé publique Web3Forms utilisée par le formulaire "Je veux investir" pour envoyer
+ * directement les données à info@bamboo-securities.com (sans ouvrir de client mail).
+ */
+export const web3FormsAccessKey = '08d79a75-8f10-4d4b-8c97-c2b9402a373d';
+
 /** Arrangeur & Chef de file — coordonnées de contact officielles (section Contact). */
 export const arrangerContact = {
   name: 'Africa Bright Securities',
