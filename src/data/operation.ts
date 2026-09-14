@@ -245,6 +245,7 @@ export type RoadshowStop = {
   country: string;
   flag: string; // /img/flags/<flag>.png
   status: 'done' | 'upcoming';
+  date?: string; // date de l'événement, affichée telle quelle — omis si pas encore fixée
   video?: string; // /video/<fichier> — omis si pas encore disponible
   photos?: string[]; // /img/roadshow/<fichier> — omis si pas encore disponibles
 };
@@ -256,6 +257,7 @@ export const roadshow: RoadshowStop[] = [
     country: 'Cameroun',
     flag: 'cameroun',
     status: 'done',
+    date: '9 septembre 2026',
     video: '/video/roadshow-douala.mp4',
   },
   {
