@@ -70,12 +70,21 @@ const t = useTranslations(lang);
 </section>
 
 <style>
-  /* Sans ce reset, les classes h-48/object-cover (format vignette) restent
-     appliquées en plein écran : la vidéo reste minuscule sur fond noir au lieu
-     de remplir l'écran, car les styles auteur priment sur le style :fullscreen
-     par défaut du navigateur. */
-  .roadshow-video-wrap video:fullscreen,
-  .roadshow-video-wrap video:-webkit-full-screen {
+  /* On passe le CONTENEUR (vidéo + bouton) en plein écran, pas la balise
+     <video> seule : c'est l'approche des lecteurs vidéo standards (video.js,
+     Plyr...), plus fiable que de fullscreen la vidéo directement quand un
+     bouton personnalisé lui est superposé — le comportement de <video controls>
+     combiné à un overlay est incohérent selon les navigateurs. */
+  .roadshow-video-wrap:fullscreen,
+  .roadshow-video-wrap:-webkit-full-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    border-radius: 0;
+  }
+  .roadshow-video-wrap:fullscreen video,
+  .roadshow-video-wrap:-webkit-full-screen video {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -84,15 +93,26 @@ const t = useTranslations(lang);
 
 <script>
   document.querySelectorAll<HTMLButtonElement>('.roadshow-fullscreen-btn').forEach((btn) => {
+    const wrap = btn.closest<HTMLElement & {
+      webkitRequestFullscreen?: () => void;
+    }>('.roadshow-video-wrap');
+    if (!wrap) return;
     btn.addEventListener('click', () => {
-      const video = btn.previousElementSibling as (HTMLVideoElement & {
-        webkitRequestFullscreen?: () => void;
-        webkitEnterFullscreen?: () => void;
-      }) | null;
-      if (!video) return;
-      if (video.requestFullscreen) video.requestFullscreen();
-      else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
-      else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+      if (document.fullscreenElement === wrap) {
+        document.exitFullscreen();
+        return;
+      }
+      if (wrap.requestFullscreen) {
+        wrap.requestFullscreen().catch(() => {
+          const video = wrap.querySelector('video') as (HTMLVideoElement & { webkitEnterFullscreen?: () => void }) | null;
+          video?.webkitEnterFullscreen?.();
+        });
+      } else if (wrap.webkitRequestFullscreen) {
+        wrap.webkitRequestFullscreen();
+      } else {
+        const video = wrap.querySelector('video') as (HTMLVideoElement & { webkitEnterFullscreen?: () => void }) | null;
+        video?.webkitEnterFullscreen?.();
+      }
     });
   });
 </script>
