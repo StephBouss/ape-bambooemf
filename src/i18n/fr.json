@@ -10,6 +10,7 @@
     "operation": "L'Opération",
     "simulateur": "Simulateur",
     "syndicat": "Syndicat de placement",
+    "roadshow": "Roadshow",
     "documents": "Documents",
     "contact": "Contact",
     "langSwitch": "EN"
@@ -44,6 +45,14 @@
     "title": "Découvrir l'opération en vidéo",
     "lead": "Un aperçu rapide de l'émission EO BAMBOO EMF 7,25% Brut 2026-2029.",
     "unsupported": "Votre navigateur ne prend pas en charge la lecture vidéo."
+  },
+  "roadshow": {
+    "eyebrow": "Sur le terrain",
+    "title": "Roadshow",
+    "lead": "Retour sur les présentations organisées auprès des investisseurs dans les principales places financières de la zone CEMAC.",
+    "statusDone": "Réalisé",
+    "statusUpcoming": "À venir",
+    "comingSoon": "Vidéos et photos bientôt disponibles."
   },
   "issuer": {
     "eyebrow": "L'Émetteur",

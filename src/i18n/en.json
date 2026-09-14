@@ -10,6 +10,7 @@
     "operation": "The Offering",
     "simulateur": "Simulator",
     "syndicat": "Placement Syndicate",
+    "roadshow": "Roadshow",
     "documents": "Documents",
     "contact": "Contact",
     "langSwitch": "FR"
@@ -44,6 +45,14 @@
     "title": "Discover the offering in video",
     "lead": "A quick overview of the EO BAMBOO EMF 7.25% Gross 2026-2029 bond issue.",
     "unsupported": "Your browser does not support video playback."
+  },
+  "roadshow": {
+    "eyebrow": "On the ground",
+    "title": "Roadshow",
+    "lead": "Highlights from the investor presentations held across the CEMAC zone's main financial centres.",
+    "statusDone": "Completed",
+    "statusUpcoming": "Upcoming",
+    "comingSoon": "Videos and photos coming soon."
   },
   "issuer": {
     "eyebrow": "The Issuer",

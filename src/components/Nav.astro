@@ -14,6 +14,7 @@ const altFlag = flagFor[alt];
 const links = [
   { href: '#accueil', label: t.nav.accueil },
   { href: '#emetteur', label: t.nav.emetteur },
+  { href: '#roadshow', label: t.nav.roadshow, highlight: true },
   { href: '#operation', label: t.nav.operation },
   { href: '#simulateur', label: t.nav.simulateur },
   { href: '#syndicat', label: t.nav.syndicat },
@@ -40,9 +41,15 @@ const links = [
     <ul class="hidden lg:flex items-center gap-8 text-sm font-medium text-muted">
       {links.map((l) => (
         <li>
-          <a href={l.href} class="nav-link relative py-1 hover:text-vert-foret transition-colors">
-            {l.label}
-          </a>
+          {l.highlight ? (
+            <a href={l.href} class="inline-flex items-center rounded-full bg-vert-marque text-white px-4 py-1.5 font-semibold hover:bg-vert-foret transition-colors">
+              {l.label}
+            </a>
+          ) : (
+            <a href={l.href} class="nav-link relative py-1 hover:text-vert-foret transition-colors">
+              {l.label}
+            </a>
+          )}
         </li>
       ))}
     </ul>
@@ -63,7 +70,11 @@ const links = [
 
   <div id="mobile-menu" class="lg:hidden hidden flex-col gap-1 px-6 pb-6 bg-white/95 backdrop-blur border-t border-filet">
     {links.map((l) => (
-      <a href={l.href} class="py-3 text-sm font-medium text-encre border-b border-filet last:border-0">{l.label}</a>
+      l.highlight ? (
+        <a href={l.href} class="my-2 inline-flex w-fit items-center rounded-full bg-vert-marque text-white text-sm font-semibold px-4 py-2 hover:bg-vert-foret transition-colors">{l.label}</a>
+      ) : (
+        <a href={l.href} class="py-3 text-sm font-medium text-encre border-b border-filet last:border-0">{l.label}</a>
+      )
     ))}
     <a href={altHref} class="py-3 flex items-center gap-2 text-sm font-bold text-vert-foret">
       <img src={`/img/flags/${altFlag}.svg`} alt="" width="20" height="14" class="rounded-sm" />

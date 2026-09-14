@@ -240,6 +240,38 @@ export const documents: DocumentItem[] = [
   },
 ];
 
+export type RoadshowStop = {
+  city: string;
+  country: string;
+  flag: string; // /img/flags/<flag>.png
+  status: 'done' | 'upcoming';
+  video?: string; // /video/<fichier> — omis si pas encore disponible
+  photos?: string[]; // /img/roadshow/<fichier> — omis si pas encore disponibles
+};
+
+/** Étapes du roadshow investisseurs, dans l'ordre chronologique. */
+export const roadshow: RoadshowStop[] = [
+  {
+    city: 'Douala',
+    country: 'Cameroun',
+    flag: 'cameroun',
+    status: 'done',
+    video: '/video/roadshow-douala.mp4',
+  },
+  {
+    city: 'Brazzaville',
+    country: 'Congo',
+    flag: 'congo',
+    status: 'upcoming',
+  },
+  {
+    city: 'Libreville',
+    country: 'Gabon',
+    flag: 'gabon',
+    status: 'upcoming',
+  },
+];
+
 /** Vidéo de présentation de l'opération, lue directement depuis la landing page. */
 export const promoVideo = {
   src: '/video/spot-ape.mp4',

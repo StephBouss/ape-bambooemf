@@ -1,0 +1,51 @@
+---
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+import { roadshow } from '../data/operation';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+<section id="roadshow" class="py-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-2xl mb-12 reveal-group">
+      <div class="eyebrow reveal-item mb-3">{t.roadshow.eyebrow}</div>
+      <h2 class="reveal-item font-display font-bold text-3xl md:text-4xl text-charbon">{t.roadshow.title}</h2>
+      <p class="reveal-item text-muted mt-3">{t.roadshow.lead}</p>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-6 reveal-group">
+      {roadshow.map((stop) => (
+        <div class="reveal-item rounded-card border border-filet shadow-soft overflow-hidden bg-white flex flex-col">
+          <div class="flex items-center gap-3 px-5 py-4 border-b border-filet">
+            <img src={`/img/flags/${stop.flag}.png`} alt="" width="24" height="16" class="rounded-sm" />
+            <span class="font-display font-semibold text-sm text-charbon">{stop.city}</span>
+            <span class={`ml-auto text-[10px] font-bold uppercase tracking-wide rounded-full px-2.5 py-1 ${stop.status === 'done' ? 'bg-vert-marque/15 text-vert-foret' : 'bg-jaune-taux/25 text-charbon'}`}>
+              {stop.status === 'done' ? t.roadshow.statusDone : t.roadshow.statusUpcoming}
+            </span>
+          </div>
+
+          {stop.video ? (
+            <video controls playsinline preload="metadata" class="w-full h-auto block bg-charbon">
+              <source src={stop.video} type="video/mp4" />
+              {t.video.unsupported}
+            </video>
+          ) : (
+            <div class="flex-1 flex items-center justify-center px-6 py-16 text-center text-sm text-muted bg-menthe-fond">
+              {t.roadshow.comingSoon}
+            </div>
+          )}
+
+          {stop.photos && stop.photos.length > 0 && (
+            <div class="grid grid-cols-3 gap-1 p-1">
+              {stop.photos.map((p) => (
+                <img src={p} alt="" class="w-full h-24 object-cover rounded-sm" />
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
