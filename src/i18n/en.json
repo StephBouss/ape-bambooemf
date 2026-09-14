@@ -52,7 +52,8 @@
     "lead": "Highlights from the investor presentations held across the CEMAC zone's main financial centres.",
     "statusDone": "Completed",
     "statusUpcoming": "Upcoming",
-    "comingSoon": "Videos and photos coming soon."
+    "comingSoon": "Videos and photos coming soon.",
+    "expand": "Expand to fullscreen"
   },
   "issuer": {
     "eyebrow": "The Issuer",
